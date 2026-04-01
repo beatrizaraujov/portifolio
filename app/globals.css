@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@theme {
+  /* Isso garante que o Tailwind v4 reconheça as cores e espaçamentos */
+  --color-brand: #7B7BFF;
+}
+
+:root {
+  --background: #0B0B0B;
+  --foreground: #D6D6D6;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+}
