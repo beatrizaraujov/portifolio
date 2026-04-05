@@ -1,0 +1,66 @@
+import Image from "next/image";
+
+export default function Diferencial() {
+const diferenciais = [
+  {
+    title: "Business-Driven Development",
+    description: "Desenvolvimento orientado a resultados, com decisões técnicas alinhadas a métricas de crescimento e impacto no negócio.",
+    icon: "/strategic.svg"
+  },
+  {
+    title: "Process Automation & Integrations",
+    description: "Criação de automações e integrações com APIs que reduzem tarefas operacionais e aumentam a eficiência do negócio.",
+    icon: "/automation.svg"
+  },
+  {
+    title: "Product & User Vision",
+    description: "Visão estratégica de produto com foco na experiência do usuário, conversão e retenção.",
+    icon: "/product.svg"
+  },
+  {
+    title: "Scalable Problem Solving",
+    description: "Resolução de problemas complexos com soluções escaláveis, código limpo e foco em performance.",
+    icon: "/solution.svg"
+  }
+];
+
+  return (
+    <section className="bg-[#0B0B0B] py-24 px-6 overflow-hidden">
+      <div className="max-w-[1440px] mx-auto">
+        <div className="mb-20">
+          <span className="text-[#7B7BFF] tracking-[0.3em] uppercase font-black text-[17px]">
+            diferencial
+          </span>
+          <h2 className="mt-6 text-[#E5E2E1] leading-[1.1] text-4xl md:text-7xl font-bold max-w-3xl">
+            Pensamento estratégico além do código
+          </h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {diferenciais.map((item, index) => (
+            <div 
+              key={index}
+              className="bg-[#121212] border border-white/5 p-10 rounded-3xl hover:border-[#7B7BFF]/30 transition-all duration-500 hover:-translate-y-2 group"
+            >
+              <div className="w-14 h-14 bg-[#1A1A1A] rounded-2xl flex items-center justify-center mb-10 group-hover:scale-110 transition-transform duration-500">
+                <Image 
+                  src={item.icon} 
+                  width={26} 
+                  height={26} 
+                  alt={item.title}
+                  className="opacity-80 group-hover:opacity-100 transition-opacity"
+                />
+              </div>
+              <h3 className="text-white text-2xl font-bold mb-4 tracking-tight">
+                {item.title}
+              </h3>
+              <p className="text-zinc-400 leading-relaxed text-lg">
+                {item.description}
+              </p>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </section>
+  );
+}
