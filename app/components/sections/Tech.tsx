@@ -14,8 +14,6 @@ export default function Tech() {
   return (
     <section className="bg-[#0E0E0E] py-32 px-6">
       <div className="max-w-[1440px] mx-auto flex flex-col items-center">
-        
-        {/* Header Centralizado - Baseado no print Desktop */}
         <div className="flex flex-col items-center text-center mb-20">
           <span className="text-[#7B7BFF] uppercase font-black tracking-[0.4em] text-[12px]">
             Tech Ecosystem
@@ -24,8 +22,6 @@ export default function Tech() {
             Onde a lógica encontra o design
           </h4>
         </div>
-
-        {/* Grid de Cards - Responsivo para Mobile (2 colunas) e Desktop (7 colunas) */}
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 w-full">
           {technologies.map((tech) => (
             <div 
