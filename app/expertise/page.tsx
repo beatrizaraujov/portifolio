@@ -1,9 +1,12 @@
-import Hero from "./Hero";
+
+import Expertise from "./Hero"; 
+import Stack from "./Stack";
 
 export default function ExpertisePage() {
   return (
     <main>
-      <Hero />
+      <Expertise />
+      <Stack />
     </main>
   );
 }

@@ -1,4 +1,4 @@
-export default function Hero() {
+export default function Expertise() {
   return (
     <section className="bg-[#0B0B0B] py-24 px-6 md:px-12 lg:px-24">
       <div className="max-w-[1440px] mx-auto flex flex-col items-center text-center">

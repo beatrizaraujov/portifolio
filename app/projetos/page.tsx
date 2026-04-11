@@ -1,16 +1,10 @@
-import Hero from "./Hero";
-import Diferencial from "./Diferencial";
+// app/projetos/page.tsx
 import Projects from "./Projects";
-import Tech from "./Tech";
-import Contact from "./Contact";
-export default function Home() {
+
+export default function ProjetosPage() {
   return (
     <main>
-      <Hero />
-      <Diferencial />
       <Projects />
-      <Tech />
-      <Contact />
     </main>
   );
 }
