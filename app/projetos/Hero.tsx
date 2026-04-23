@@ -18,12 +18,11 @@ export default function Hero() {
           </div>
 
           <h1 className="text-4xl md:text-7xl font-bold text-white leading-[1.1] tracking-tight">
-            Eu desenvolvo interfaces modernas com foco em
-            <span className="text-[#C0C1FF]"> performance, experiência e impacto real.</span>
+           Desenvolvimento frontend com foco em
+            <span className="text-[#C0C1FF]"> performance, clareza e manutenção.</span>
           </h1>
           <p className="mt-8 text-lg md:text-xl text-zinc-400 max-w-xl leading-relaxed">
-            Com foco em código limpo, boas práticas e atenção aos detalhes, 
-            transformo ideias em interfaces funcionais, escaláveis e bem estruturadas.
+            Projetos com foco em usabilidade, performance e facilidade de evolução.
           </p>
 
           <button className="mt-10 group flex items-center gap-3 bg-[#C0C1FF] text-black text-[11px] font-black uppercase px-10 h-[52px] rounded-2xl hover:brightness-110 transition-all tracking-widest w-full md:w-auto justify-center">

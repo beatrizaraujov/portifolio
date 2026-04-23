@@ -4,6 +4,8 @@ export default function Projects() {
   return (
     <section className="bg-[#0B0B0B] py-24 px-6">
       <div className="max-w-[1440px] mx-auto">
+
+        
         <div className="flex justify-between items-end mb-20">
           <div>
             <span className="text-[#7B7BFF] uppercase font-black tracking-[0.3em] text-[11px]">
@@ -14,113 +16,151 @@ export default function Projects() {
             </h3>
           </div>
           <span className="hidden lg:block text-zinc-500 text-[10px] uppercase tracking-[0.2em] font-medium pb-4">
-            Scroll to explore — 01/02
+            01 / 02
           </span>
         </div>
 
-        
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-start group mb-32">
-          <div className="order-2 lg:order-1 flex flex-col lg:sticky lg:top-24">
+    
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-start mb-32">
+          
+    
+          <div className="flex flex-col lg:sticky lg:top-24">
+            
             <div className="flex flex-wrap gap-3 mb-8">
-              <span className="text-[11px] font-semibold text-[#C0C1FF] bg-[#1A1A1A] border border-white/5 px-4 py-1.5 rounded-full uppercase tracking-wider">
-                Next.js
-              </span>
-              <span className="text-[11px] font-semibold text-[#C0C1FF] bg-[#1A1A1A] border border-white/5 px-4 py-1.5 rounded-full uppercase tracking-wider">
-                Tailwind CSS
-              </span>
-              <span className="text-[11px] font-semibold text-[#C0C1FF] bg-[#1A1A1A] border border-white/5 px-4 py-1.5 rounded-full uppercase tracking-wider">
-                MapBiomas API
-              </span>
+              <span className="tag">Next.js</span>
+              <span className="tag">Tailwind</span>
+              <span className="tag">API</span>
             </div>
-            <h4 className="text-[#E5E2E1] text-4xl lg:text-5xl font-bold mb-6 tracking-tight">
+
+            <h4 className="text-white text-4xl lg:text-5xl font-bold mb-6">
               AgroClimate Intelligence
             </h4>
-            <p className="text-zinc-400 text-lg leading-relaxed mb-12 max-w-xl">
-              Dashboard interativo projetado para conectar dados agrícolas e impacto ambiental. 
-              O foco é transformar bases públicas complexas em insights visuais claros para apoiar decisões conscientes sobre sustentabilidade e economia.
+
+            <p className="text-zinc-400 text-lg mb-10 max-w-xl">
+              Dashboard para visualização de dados agrícolas e ambientais a partir de APIs públicas.
+              Os dados são organizados em gráficos para facilitar leitura e análise.
             </p>
-            <div className="grid grid-cols-2 gap-8 border-t border-white/10 pt-10">
+
+            <div className="grid grid-cols-2 gap-6 text-sm text-zinc-400 border-t border-white/10 pt-8">
               <div>
-                <span className="text-[#7B7BFF] uppercase font-black tracking-widest text-[10px] block mb-3">
-                  Inquietação
+                <span className="text-[#7B7BFF] text-[10px] uppercase font-bold block mb-2">
+                  Problema
                 </span>
-                <p className="text-zinc-400 text-sm leading-relaxed">
-                  Dados vitais sobre produção global dispersos em bases pouco acessíveis.
-                </p>
+                Dados disponíveis, mas difíceis de interpretar.
               </div>
+
               <div>
-                <span className="text-[#7B7BFF] uppercase font-black tracking-widest text-[10px] block mb-3">
-                  Proposta
+                <span className="text-[#7B7BFF] text-[10px] uppercase font-bold block mb-2">
+                  Solução
                 </span>
-                <p className="text-zinc-400 text-sm leading-relaxed">
-                  Conectar impacto ambiental e análise de tendências em um único lugar.
-                </p>
+                Organização dos dados em dashboard visual.
+              </div>
+
+              <div>
+                <span className="text-[#7B7BFF] text-[10px] uppercase font-bold block mb-2">
+                  Técnica
+                </span>
+                Next.js para performance e carregamento eficiente.
+              </div>
+
+              <div>
+                <span className="text-[#7B7BFF] text-[10px] uppercase font-bold block mb-2">
+                  Resultado
+                </span>
+                Leitura mais rápida e clara das informações.
               </div>
             </div>
+
+            <div className="flex gap-4 mt-10">
+              <button className="bg-[#C0C1FF] text-black text-xs font-bold px-6 py-3 rounded-xl">
+                Ver projeto
+              </button>
+              <button className="border border-white/10 text-white text-xs font-bold px-6 py-3 rounded-xl">
+                Código
+              </button>
+            </div>
+
           </div>
 
-          
-          <div className="order-1 lg:order-2 w-full rounded-[32px] overflow-hidden bg-[#1A1A1A] border border-white/5 shadow-2xl">
+          <div className="rounded-2xl overflow-hidden border border-white/5">
             <Image
-              src="/agroclimate-hero.png" 
-              alt="Dashboard AgroClimate Completo"
+              src="/agroclimate-hero.png"
+              alt="Dashboard"
               width={1200}
-              height={1600}
-              className="w-full h-auto object-cover transition-transform duration-1000 ease-in-out group-hover:scale-105"
-              priority
+              height={800}
+              className="w-full object-cover"
             />
           </div>
         </div>
 
-        
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center group">
-          <div className="order-1 lg:order-1 relative w-full lg:max-w-[400px] mx-auto aspect-[9/19] rounded-[40px] overflow-hidden bg-[#0B0B0B] border-[8px] border-[#1A1A1A] shadow-2xl shadow-black/50">
+       
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+          
+          <div className="relative w-full max-w-[400px] mx-auto aspect-[9/19] border border-white/5 rounded-3xl overflow-hidden">
             <Image
-              src="/finanly.png" 
-              alt="Interface Finanly Mobile Completa"
+              src="/finanly.png"
+              alt="Finanly"
               fill
-              className="object-contain transition-transform duration-1000 ease-in-out group-hover:scale-105"
+              className="object-contain"
             />
           </div>
 
-          <div className="order-2 lg:order-2 flex flex-col">
+          <div>
             <div className="flex flex-wrap gap-3 mb-8">
-              <span className="text-[11px] font-semibold text-[#C0C1FF] bg-[#1A1A1A] border border-white/5 px-4 py-1.5 rounded-full uppercase tracking-wider">
-                React 19
-              </span>
-              <span className="text-[11px] font-semibold text-[#C0C1FF] bg-[#1A1A1A] border border-white/5 px-4 py-1.5 rounded-full uppercase tracking-wider">
-                Supabase
-              </span>
-              <span className="text-[11px] font-semibold text-[#C0C1FF] bg-[#1A1A1A] border border-white/5 px-4 py-1.5 rounded-full uppercase tracking-wider">
-                Mobile-First
-              </span>
+              <span className="tag">React</span>
+              <span className="tag">Supabase</span>
+              <span className="tag">Mobile</span>
             </div>
-            <h4 className="text-[#E5E2E1] text-4xl lg:text-5xl font-bold mb-6 tracking-tight">
+
+            <h4 className="text-white text-4xl lg:text-5xl font-bold mb-6">
               Finanly — Gestão Financeira
             </h4>
-            <p className="text-zinc-400 text-lg leading-relaxed mb-12 max-w-xl">
-              Aplicação mobile-first criada para simplificar a organização de fluxo de caixa e encomendas para autônomos, 
-              priorizando a usabilidade direta pelo celular no dia a dia.
+
+            <p className="text-zinc-400 text-lg mb-10 max-w-xl">
+              Aplicação mobile para controle financeiro de autônomos, com registro de entradas,
+              saídas e visualização do fluxo de caixa.
             </p>
-            <div className="grid grid-cols-2 gap-8 border-t border-white/10 pt-10">
+
+            <div className="grid grid-cols-2 gap-6 text-sm text-zinc-400 border-t border-white/10 pt-8">
               <div>
-                <span className="text-[#7B7BFF] uppercase font-black tracking-widest text-[10px] block mb-3">
+                <span className="text-[#7B7BFF] text-[10px] uppercase font-bold block mb-2">
                   Problema
                 </span>
-                <p className="text-zinc-400 text-sm leading-relaxed">
-                  Desorganização financeira de prestadores que operam direto pelo celular.
-                </p>
+                Falta de organização financeira no dia a dia.
               </div>
+
               <div>
-                <span className="text-[#7B7BFF] uppercase font-black tracking-widest text-[10px] block mb-3">
+                <span className="text-[#7B7BFF] text-[10px] uppercase font-bold block mb-2">
+                  Solução
+                </span>
+                Interface simples para controle pelo celular.
+              </div>
+
+              <div>
+                <span className="text-[#7B7BFF] text-[10px] uppercase font-bold block mb-2">
+                  Técnica
+                </span>
+                Supabase para dados em tempo real.
+              </div>
+
+              <div>
+                <span className="text-[#7B7BFF] text-[10px] uppercase font-bold block mb-2">
                   Resultado
                 </span>
-                <p className="text-zinc-400 text-sm leading-relaxed">
-                  Centralização de dados e insights financeiros em tempo real com backend sólido.
-                </p>
+                Centralização das informações financeiras.
               </div>
             </div>
+
+            <div className="flex gap-4 mt-10">
+              <button className="bg-[#C0C1FF] text-black text-xs font-bold px-6 py-3 rounded-xl">
+                Ver projeto
+              </button>
+              <button className="border border-white/10 text-white text-xs font-bold px-6 py-3 rounded-xl">
+                Código
+              </button>
+            </div>
           </div>
+
         </div>
 
       </div>
