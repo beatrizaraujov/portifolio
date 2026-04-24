@@ -4,25 +4,25 @@ const steps = [
   {
     title: "Levantamento",
     description:
-      "Entendimento do problema, contexto do negócio e definição clara do que precisa ser resolvido antes de qualquer decisão técnica.",
+      "Análise estruturada do problema, entendimento profundo do contexto de negócio e definição objetiva do escopo antes de qualquer decisão técnica.",
     icon: <Lightbulb size={20} className="text-[#C0C1FF]" />,
   },
   {
     title: "Estruturação",
     description:
-      "Definição de arquitetura, organização de dados e contratos entre front e back para garantir consistência e escalabilidade.",
+      "Definição de arquitetura, modelagem de dados e contratos entre sistemas, garantindo consistência, previsibilidade e escalabilidade desde a base.",
     icon: <Network size={20} className="text-[#C0C1FF]" />,
   },
   {
     title: "Desenvolvimento",
     description:
-      "Implementação incremental com foco em legibilidade, reutilização e estabilidade do código.",
+      "Construção incremental orientada à qualidade, com foco em legibilidade, reutilização e estabilidade para reduzir dívida técnica e facilitar evolução.",
     icon: <Code2 size={20} className="text-[#C0C1FF]" />,
   },
   {
     title: "Evolução",
     description:
-      "Ajustes baseados em uso real, melhoria de performance e adaptação contínua conforme o produto cresce.",
+      "Otimização contínua baseada em uso real, com melhorias de performance, refinamento de fluxos e adaptação estratégica conforme o produto cresce.",
     icon: <BarChart3 size={20} className="text-[#C0C1FF]" />,
   },
 ];
@@ -31,11 +31,10 @@ export default function LifecycleGrid() {
   return (
     <section className="py-20 px-6 md:px-12 lg:px-24 bg-[#0B0B0B] space-y-16">
       
-      
       <div className="flex justify-between items-end border-b border-white/5 pb-6">
         <div className="space-y-4">
           <h2 className="text-4xl font-bold text-white tracking-tight">
-            Como eu desenvolvo
+            Engenharia aplicada ao desenvolvimento
           </h2>
           <div className="h-1 w-20 bg-[#6366F1]" />
         </div>
@@ -44,7 +43,6 @@ export default function LifecycleGrid() {
         </span>
       </div>
 
-    
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {steps.map((step, index) => (
           <div 
@@ -56,10 +54,10 @@ export default function LifecycleGrid() {
             </div>
             
             <div className="space-y-4">
-              <h3 className="text-2xl font-bold text-white tracking-tight">
+              <h3 className="text-2xl font-semibold text-white tracking-tight">
                 {step.title}
               </h3>
-              <p className="text-zinc-500 leading-relaxed font-medium">
+              <p className="text-zinc-400 leading-relaxed">
                 {step.description}
               </p>
             </div>

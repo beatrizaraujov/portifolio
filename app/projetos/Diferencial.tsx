@@ -3,27 +3,27 @@ import Image from "next/image";
 export default function Diferencial() {
   const diferenciais = [
     {
-      title: "Foco em resultado",
+      title: "Desenvolvimento orientado a problema",
       description:
-        "Desenvolvo soluções considerando impacto no negócio, não apenas a entrega técnica.",
+        "Construo soluções considerando o objetivo do projeto, não apenas a interface.",
       icon: "/strategic.svg",
     },
     {
-      title: "Integração e automação",
+      title: "Integração com APIs",
       description:
-        "Crio integrações com APIs e automações para reduzir tarefas manuais e ganhar eficiência.",
+        "Conecto sistemas e organizo dados para facilitar uso e manutenção.",
       icon: "/automation.svg",
     },
     {
-      title: "Pensamento de produto",
+      title: "Experiência do usuário  ",
       description:
-        "Levo em conta experiência do usuário, clareza da interface e fluxo de uso.",
+        "Interfaces claras, com foco em navegação simples e fluxo consistente.",
       icon: "/product.svg",
     },
     {
-      title: "Código sustentável",
+      title: "Código organizado",
       description:
-        "Escrevo código organizado, fácil de manter e preparado para evolução.",
+        "Estrutura pensada para facilitar manutenção e evolução do projeto.",
       icon: "/solution.svg",
     },
   ];
