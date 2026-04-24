@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function Contact() {
   const [nome, setNome] = useState("");
@@ -10,7 +10,6 @@ export default function Contact() {
   const [showPopup, setShowPopup] = useState(false);
   const [popupType, setPopupType] = useState("success"); 
 
-
   useEffect(() => {
     if (showPopup) {
       const timer = setTimeout(() => setShowPopup(false), 5000);
@@ -18,7 +17,7 @@ export default function Contact() {
     }
   }, [showPopup]);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSending(true);
 
@@ -49,7 +48,6 @@ export default function Contact() {
   return (
     <section className="relative bg-[#0B0B0B] py-24 px-6 md:px-12 lg:px-24 font-inter overflow-hidden">
       
-   
       {showPopup && (
         <div className={`fixed top-10 left-1/2 -translate-x-1/2 z-[100] flex items-center gap-3 px-6 py-4 rounded-2xl border backdrop-blur-xl transition-all duration-500 animate-in fade-in slide-in-from-top-4 ${
           popupType === "success" 
@@ -68,7 +66,6 @@ export default function Contact() {
 
       <div className="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
         
-     
         <div className="flex flex-col gap-8">
           <h2 className="text-5xl lg:text-7xl font-bold tracking-tight text-white leading-[1.1]">
             Aberta a novas oportunidades e projetos.
@@ -84,7 +81,6 @@ export default function Contact() {
           </a>
         </div>
 
-       
         <div className="bg-[#121212] p-8 md:p-12 rounded-[32px] border border-white/5 shadow-2xl relative">
           <div className="mb-10">
             <h3 className="text-white text-2xl font-bold mb-2">Inicie uma conversa</h3>
