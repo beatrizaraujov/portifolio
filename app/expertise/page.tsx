@@ -1,15 +1,23 @@
+import type { Metadata } from "next";
 
-import Expertise from "./Hero"; 
-import ProductVision from "./ProductVision";
-import AutomationTooling from "./AutomationTooling";
-import Stack from "./Stack";
-export default function ExpertisePage() {
+import Intro from "./Intro";
+import Capabilities from "./Capabilities";
+import Trajetoria from "./Trajetoria";
+import AlemDoCodigo from "./AlemDoCodigo";
+
+export const metadata: Metadata = {
+  title: "Sobre",
+  description:
+    "Da análise de operações ao desenvolvimento front-end: áreas de atuação, trajetória profissional e o que acompanha a entrega técnica.",
+};
+
+export default function SobrePage() {
   return (
-    <main>
-      <Expertise />
-      <Stack />
-      <ProductVision />
-      <AutomationTooling />
-    </main>
+    <>
+      <Intro />
+      <Capabilities />
+      <Trajetoria />
+      <AlemDoCodigo />
+    </>
   );
 }

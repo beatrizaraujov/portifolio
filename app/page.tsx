@@ -1,17 +1,17 @@
-import Hero from "./projetos/Hero";
-import Diferencial from "./projetos/Diferencial";
-import Projects from "./projetos/Projects";
-import Tech from "./projetos/Tech";
-import Contact from "./projetos/Contact";
+import Hero from "./components/home/Hero";
+import Principios from "./components/home/Principios";
+import Projects from "./components/home/Projects";
+import Tech from "./components/home/Tech";
+import Contact from "./components/home/Contact";
 
 export default function Home() {
   return (
-    <main>
+    <>
       <Hero />
-      <Diferencial />
+      <Principios />
       <Projects />
       <Tech />
       <Contact />
-    </main>
+    </>
   );
 }
