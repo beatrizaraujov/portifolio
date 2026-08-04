@@ -1,38 +1,137 @@
-Beatriz Araújo — Engenharia de Front-end & Produto
-Status: Concluído.
-🌐 Live Demo: https://portifolio-one-coral-93.vercel.app/
+# Beatriz Araújo — Portfólio
 
-Este não é apenas um portfólio visual; é uma aplicação de alta performance construída para demonstrar como a engenharia aplicada pode resolver problemas de comunicação e conversão de negócios. Como fundadora da Betrix, utilizei este projeto para validar arquiteturas que aplico em soluções para clientes reais.
+Site pessoal de apresentação profissional, construído como projeto de
+engenharia: projetos desenvolvidos, processo de trabalho e trajetória.
 
-🏗️ Diferenciais de Engenharia
-1. Comunicação Transacional com Resend
-Diferente de formulários simples que dependem de serviços externos de terceiros, implementei uma infraestrutura robusta:
+**Aplicação em produção:** https://portifolio-one-coral-93.vercel.app/
 
-API Routes (Next.js): Criei rotas de servidor seguras para processar envios de contato.
+---
 
-Integração com Resend: Fluxo de e-mail desacoplado, garantindo alta taxa de entrega e controle total sobre o envio.
+## Visão geral
 
-Lógica de Estado: if (status === "sending") >>> O sistema dispara um toast de carregamento assíncrono, fornecendo feedback imediato e reduzindo a ansiedade do usuário durante a requisição.
+Este repositório não hospeda apenas uma vitrine visual. Ele serve como
+validação prática das arquiteturas que aplico em soluções para clientes reais
+por meio da Betrix — do tratamento de dados no servidor à experiência de quem
+preenche um formulário e precisa saber que a mensagem chegou.
 
-2. Arquitetura de Performance (Next.js + TypeScript)
-Previsibilidade: Uso de TypeScript em todo o projeto para garantir contratos de dados rígidos e evitar erros em produção.
+As três rotas de conteúdo são geradas estaticamente em tempo de build; apenas o
+envio do formulário é processado sob demanda.
 
-Design Sistêmico: Estilização com Tailwind CSS seguindo uma estética minimalista de "Quiet Luxury", priorizando a hierarquia visual e a clareza de informações.
+---
 
-🛠️ Stack Tecnológica
-Next.js (App Router): Framework para otimização de performance e rotas.
+## Decisões de engenharia
 
-React: Construção de interfaces declarativas e componentes modulares.
+### Formulário de contato com Route Handler e Resend
 
-PostCSS & Tailwind: Para uma estilização eficiente e otimizada para o navegador.
+O envio não depende de serviços de formulário de terceiros. A submissão é
+processada por um Route Handler próprio (`app/api/send/route.ts`), o que mantém
+a credencial de e-mail no servidor e concentra as regras de aceitação em um
+único ponto:
 
-ESLint: Garantia de padronização de código e boas práticas de desenvolvimento.
+- **Validação no servidor.** Tipos, formato de e-mail e limites de tamanho
+  (120/200/4000 caracteres) são verificados antes de qualquer chamada externa.
+  A validação do navegador é conveniência, não garantia.
+- **Proteção contra automação.** Campo isca fora da ordem de tabulação e oculto
+  de leitores de tela. Quando preenchido, a requisição recebe resposta de
+  sucesso sem disparar e-mail — nenhum sinal é devolvido ao robô.
+- **Escape de HTML.** O conteúdo submetido é escapado antes de compor o corpo
+  do e-mail, eliminando injeção de marcação na caixa de entrada.
+- **Degradação previsível.** Sem `RESEND_API_KEY` configurada, o site opera
+  normalmente e apenas o endpoint responde 503 — a ausência de credencial não
+  derruba a aplicação.
+- **`replyTo` no remetente original**, para que a resposta parta direto da
+  caixa de entrada.
 
-🧠 Mentalidade de Produto
-Este projeto reflete minha transição do "funciona" para o "pronto para o mercado". Cada componente foi pensado como parte de um fluxo de produto, focando em:
+### Estado e retorno ao usuário
 
-Confiabilidade: O formulário nunca deixa o usuário sem resposta.
+O estado do envio é modelado como união discriminada
+(`idle | sending | sent | error`), o que torna os quatro cenários exaustivos e
+impede combinações inválidas. O retorno é apresentado em região `aria-live`
+com altura reservada: o usuário recebe confirmação ou erro sem que o layout
+se desloque, e leitores de tela anunciam a mudança.
 
-Consistência: Experiência idêntica em qualquer tamanho de tela (Mobile-first).
+### Interface e performance
 
-Escalabilidade: Estrutura preparada para a adição de novas seções e blog através de CMS ou arquivos locais.
+- **TypeScript em todo o projeto**, com os dados dos projetos tipados na origem
+  (`app/content/site.ts`) e consumidos a partir de um contrato único.
+- **Imagens com dimensões declaradas** e `sizes` definido por breakpoint,
+  evitando deslocamento de layout durante o carregamento.
+- **Fontes servidas localmente** via `next/font`, sem requisição a terceiros e
+  sem bloqueio de renderização.
+- **Design sistêmico.** Cores, tipografia, espaçamento e componentes
+  recorrentes são tokens em `app/globals.css`. A estética minimalista prioriza
+  hierarquia visual e legibilidade da informação.
+
+### Acessibilidade
+
+Link para pular ao conteúdo, navegação por teclado no menu móvel (`Escape`
+fecha, o fundo não rola), estados de foco visíveis, `aria-current` na rota
+ativa e texto alternativo descritivo em todas as imagens.
+
+### SEO
+
+Metadados por rota, Open Graph e Twitter Card, `sitemap.ts` e `robots.ts`
+gerados pela aplicação, e página 404 própria.
+
+---
+
+## Arquitetura
+
+```
+app/
+├── content/site.ts        # identidade, navegação, links e dados dos projetos
+├── components/
+│   ├── layout/            # Navbar e Footer
+│   └── home/              # seções da página inicial
+├── expertise/             # rota /expertise ("Sobre")
+├── metodologia/           # rota /metodologia ("Processo")
+├── api/send/route.ts      # processamento do formulário de contato
+└── globals.css            # tokens de design e classes reutilizáveis
+```
+
+O texto de cada seção permanece no próprio componente. O conteúdo reaproveitado
+em mais de um lugar é centralizado em `app/content/site.ts`, de modo que
+atualizar um projeto ou um link exige alterar um único arquivo.
+
+---
+
+## Stack
+
+| Camada        | Tecnologia                          |
+| ------------- | ----------------------------------- |
+| Framework     | Next.js 16 (App Router)             |
+| Interface     | React 19                            |
+| Tipagem       | TypeScript 5                        |
+| Estilização   | Tailwind CSS 4 via PostCSS          |
+| E-mail        | Resend                              |
+| Padronização  | ESLint                              |
+| Hospedagem    | Vercel                              |
+
+---
+
+## Execução local
+
+```bash
+npm install
+npm run dev
+```
+
+O formulário de contato requer uma chave da [Resend](https://resend.com) em
+`.env.local`:
+
+```
+RESEND_API_KEY=re_xxxxxxxx
+```
+
+Opcionalmente, para o domínio utilizado em `metadata`, `sitemap` e `robots`:
+
+```
+NEXT_PUBLIC_SITE_URL=https://seudominio.com
+```
+
+| Comando         | Descrição                   |
+| --------------- | --------------------------- |
+| `npm run dev`   | ambiente de desenvolvimento |
+| `npm run build` | build de produção           |
+| `npm start`     | executa o build de produção |
+| `npm run lint`  | ESLint                      |
