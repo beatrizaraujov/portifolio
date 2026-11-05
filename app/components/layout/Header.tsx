@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -105,40 +105,73 @@ export default function Header() {
           onClick={() => setOpen((value) => !value)}
           aria-expanded={open}
           aria-controls="menu-movel"
-          className="-mr-2 min-h-11 cursor-pointer px-2 text-[0.9375rem] md:hidden"
+          className="menu-toggle md:hidden"
         >
-          {open ? "Fechar" : "Menu"}
+          <span className="menu-toggle-label" aria-hidden>
+            <span>Menu</span>
+            <span>Fechar</span>
+          </span>
+          <span className="sr-only">{open ? "Fechar menu" : "Abrir menu"}</span>
+          <span className="menu-toggle-icon" aria-hidden>
+            <span />
+            <span />
+          </span>
         </button>
       </nav>
 
       <div
         id="menu-movel"
-        hidden={!open}
+        data-open={open ? "" : undefined}
+        inert={!open}
         className="mobile-menu md:hidden"
       >
-        <ul className="page">
-          {navigation.map((item) => (
-            <li key={item.href} className="border-b border-line">
-              <Link
-                href={item.href}
-                onClick={() => setOpen(false)}
-                className="block py-3 font-display text-[clamp(2.25rem,11vw,3.25rem)] leading-tight font-bold tracking-[-0.03em]"
-              >
-                {item.label}
-              </Link>
-            </li>
-          ))}
+        <ul className="page menu-route">
+          {navigation.map((item, index) => {
+            const active = current === item.href.replace("/#", "");
+
+            return (
+              <li key={item.href} style={{ "--i": index } as CSSProperties}>
+                <Link
+                  href={item.href}
+                  onClick={() => setOpen(false)}
+                  aria-current={active ? "true" : undefined}
+                  className="menu-stop"
+                >
+                  <span className="menu-stop-dot" aria-hidden />
+                  <span className="menu-stop-label">{item.label}</span>
+                  {active ? <span className="menu-stop-here">Você está aqui</span> : null}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
 
-        <div className="page mt-auto flex flex-col items-start gap-3 pt-10 pb-8">
-          <a href={socials.curriculo} target="_blank" rel="noopener noreferrer" className="link">
-            Currículo em PDF
-            <span className="sr-only"> (abre em nova aba)</span>
-            <Arrow />
-          </a>
-          <a href={`mailto:${site.email}`} className="link">
-            {site.email}
-          </a>
+        <div
+          className="page menu-foot"
+          style={{ "--i": navigation.length } as CSSProperties}
+        >
+          <div className="menu-panel">
+            <a href={`mailto:${site.email}`} className="menu-mail">
+              {site.email}
+            </a>
+            <div className="menu-chips">
+              <a href={socials.curriculo} target="_blank" rel="noopener noreferrer" className="menu-chip">
+                Currículo
+                <Arrow />
+                <span className="sr-only"> em PDF (abre em nova aba)</span>
+              </a>
+              <a href={socials.github} target="_blank" rel="noopener noreferrer" className="menu-chip">
+                GitHub
+                <Arrow />
+                <span className="sr-only"> (abre em nova aba)</span>
+              </a>
+              <a href={socials.linkedin} target="_blank" rel="noopener noreferrer" className="menu-chip">
+                LinkedIn
+                <Arrow />
+                <span className="sr-only"> (abre em nova aba)</span>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </header>
