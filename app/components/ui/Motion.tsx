@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 
 const TARGETS = '.reveal, [class*="fx-"]';
 
-/** Marca os elementos ao entrarem na tela e inclina os marcados com data-tilt. */
+/** Marca os elementos ao entrarem na tela; o CSS conduz a animação. */
 export default function Motion() {
   const pathname = usePathname();
 
@@ -25,47 +25,6 @@ export default function Motion() {
 
     return () => observer.disconnect();
   }, [pathname]);
-
-  useEffect(() => {
-    const allowed = window.matchMedia(
-      "(hover: hover) and (prefers-reduced-motion: no-preference)",
-    );
-    if (!allowed.matches) return;
-
-    let current: HTMLElement | null = null;
-    let frame = 0;
-
-    const reset = (el: HTMLElement) => {
-      el.style.removeProperty("--tx");
-      el.style.removeProperty("--ty");
-    };
-
-    const onMove = (event: PointerEvent) => {
-      const target = event.target as Element | null;
-      const next = target?.closest<HTMLElement>("[data-tilt]") ?? null;
-
-      if (current && current !== next) reset(current);
-      current = next;
-      if (!next) return;
-
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => {
-        const box = next.getBoundingClientRect();
-        const x = (event.clientX - box.left) / box.width - 0.5;
-        const y = (event.clientY - box.top) / box.height - 0.5;
-        next.style.setProperty("--tx", (x * 2).toFixed(3));
-        next.style.setProperty("--ty", (y * 2).toFixed(3));
-      });
-    };
-
-    document.addEventListener("pointermove", onMove, { passive: true });
-
-    return () => {
-      cancelAnimationFrame(frame);
-      document.removeEventListener("pointermove", onMove);
-      if (current) reset(current);
-    };
-  }, []);
 
   return null;
 }

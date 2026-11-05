@@ -1,7 +1,8 @@
 import Image from "next/image";
 
-import { photos, talk, teaching } from "@/app/content/career";
+import { photos, teaching } from "@/app/content/career";
 import { Print, WindowBar } from "@/app/components/ui/Frame";
+import { TrackRule } from "@/app/components/ui/Route";
 
 /** Exemplo próprio; cada trecho é anotado com o tópico que demonstra. */
 const code = [
@@ -24,37 +25,22 @@ const code = [
 ];
 
 export default function Teaching() {
-  const talkDetails = [talk.event, talk.topic, talk.date].filter(Boolean);
   const facts = [
-    { label: "Datas", value: "27 a 29 de outubro de 2026" },
+    { label: "Curso", value: teaching.course },
+    { label: "Datas", value: teaching.period },
     { label: "Instituição", value: teaching.institution },
     { label: "Programa", value: teaching.program },
     { label: "Local", value: teaching.place },
   ];
 
   return (
-    <section id="ensino" className="paper paper-panel mt-section">
+    <section id="ensino" className="campo-marinho field-panel mt-section">
       <div className="page">
         <header>
-          <p className="tag fx-up">03 · Ensino</p>
-          <h2 className="mega fx-title mt-4 max-w-[18em]">
-            Introdução à Linguagem de <em>Programação Python</em>
-          </h2>
-          <p className="title fx-up mt-4 text-accent italic">{teaching.role}</p>
+          <TrackRule />
+          <h2 className="mega fx-title mt-group">Minicurso de Python na UFPA</h2>
+          <p className="lede fx-up mt-3 max-w-[40rem]">{teaching.text}</p>
         </header>
-
-        <dl className="mt-head grid gap-x-6 gap-y-5 sm:grid-cols-2 lg:grid-cols-4">
-          {facts.map((fact, index) => (
-            <div
-              key={fact.label}
-              className="fx-up border-t border-line-strong pt-3"
-              style={{ "--d": `${index * 80}ms` } as React.CSSProperties}
-            >
-              <dt className="meta">{fact.label}</dt>
-              <dd className="mt-1 leading-snug font-medium">{fact.value}</dd>
-            </div>
-          ))}
-        </dl>
 
         <div className="mt-head grid gap-8 md:grid-cols-2 md:gap-6">
           <Print
@@ -68,27 +54,28 @@ export default function Teaching() {
             shape="wide"
             delay={140}
             sizes="(max-width: 768px) 100vw, 48vw"
-            caption="Aula 2 de 3 do minicurso: decisões e repetição."
+            caption="Aula 2 de 3: decisões e repetição."
           />
         </div>
 
-        <div className="cols mt-block items-start">
+        <div className="cols mt-head items-start">
           <div className="lg:col-span-5">
-            <p className="lede fx-up">{teaching.text}</p>
+            <dl className="fx-up">
+              {facts.map((fact) => (
+                <div
+                  key={fact.label}
+                  className="grid gap-x-4 border-t border-line-strong py-3 sm:grid-cols-[6.5rem_1fr]"
+                >
+                  <dt className="font-semibold">{fact.label}</dt>
+                  <dd className="leading-snug">{fact.value}</dd>
+                </div>
+              ))}
+            </dl>
 
-            <div className="fx-up mt-head border-t border-line-strong pt-4">
-              <p className="meta">Palestra</p>
-              <p className="lede mt-2">
-                {talk.role}: {talk.description.toLowerCase()} em {talk.place}.
-              </p>
-              {talkDetails.length > 0 ? (
-                <p className="mt-2 text-muted">{talkDetails.join(", ")}</p>
-              ) : null}
-            </div>
           </div>
 
           <figure className="fx-up min-w-0 lg:col-span-6 lg:col-start-7">
-            <div className="ink frame">
+            <div className="code-window">
               <WindowBar address="logica_de_programacao.py" />
               <code
                 role="group"
@@ -111,8 +98,8 @@ export default function Teaching() {
               </code>
             </div>
             <figcaption className="note mt-3">
-              Exemplo ilustrativo dos tópicos abordados. Não reproduz o material
-              das aulas.
+              Exemplo próprio, com os tópicos abordados no minicurso. Não reproduz
+              o material das aulas.
             </figcaption>
 
             {teaching.certificate ? (
@@ -122,7 +109,7 @@ export default function Teaching() {
                 width={teaching.certificate.width}
                 height={teaching.certificate.height}
                 sizes="(max-width: 1024px) 100vw, 44vw"
-                className="mt-group h-auto w-full rounded-xl border border-line-strong"
+                className="mt-group h-auto w-full rounded-xl"
               />
             ) : null}
           </figure>

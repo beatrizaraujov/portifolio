@@ -3,7 +3,7 @@
 export const site = {
   name: "Beatriz Araújo",
   fullName: "Maria Beatriz de Araújo Viana",
-  role: "Desenvolvedora Full Stack Júnior",
+  role: "Desenvolvedora Full Stack",
   location: "Pará, Brasil",
   email: "vianabeatricx@gmail.com",
   /** Usado em metadataBase, sitemap e robots. Defina NEXT_PUBLIC_SITE_URL ao adotar domínio próprio. */
@@ -11,11 +11,11 @@ export const site = {
     process.env.NEXT_PUBLIC_SITE_URL ??
     "https://portifolio-one-coral-93.vercel.app",
   description:
-    "Desenvolvedora Full Stack Júnior. Participo do desenvolvimento de sistemas de ponta a ponta: interfaces, regras de negócio, APIs, bancos de dados, autenticação e testes.",
+    "Desenvolvedora Full Stack. Desenvolvo sistemas web completos, com interfaces, regras de negócio, APIs, bancos de dados, autenticação e testes.",
 } as const;
 
 export const navigation = [
-  { label: "Trabalho", href: "/#trabalho" },
+  { label: "Projetos", href: "/#projetos" },
   { label: "Trajetória", href: "/#trajetoria" },
   { label: "Ensino", href: "/#ensino" },
   { label: "Sobre", href: "/#sobre" },
@@ -32,7 +32,7 @@ export const socials = {
 } as const;
 
 /**
- * As camadas de um sistema: o elemento gráfico central do site.
+ * As camadas de um sistema, representadas como estações nas trilhas do site.
  * Cada projeto e experiência declara em quais delas houve atuação real.
  */
 export const layers = [

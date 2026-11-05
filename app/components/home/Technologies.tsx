@@ -4,30 +4,19 @@ import SectionHead from "@/app/components/ui/SectionHead";
 export default function Technologies() {
   return (
     <section id="tecnologias" className="page mt-section">
-      <SectionHead
-        number="04"
-        title={
-          <>
-            Tecnologias, <em>por contexto de uso</em>
-          </>
-        }
-      />
+      <SectionHead title="Tecnologias por contexto de uso" />
 
-      <dl className="mt-head grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <dl className="mt-head">
         {techContexts.map((row, index) => (
           <div
             key={row.context}
-            className="panel panel-pad panel-hover fx-up"
-            style={{ "--d": `${(index % 3) * 90}ms` } as React.CSSProperties}
+            className="fx-up cols border-t border-line py-5 !gap-y-1"
+            style={{ "--d": `${index * 50}ms` } as React.CSSProperties}
           >
-            <dt>
-              <span className="display-sm block font-display text-[clamp(1.5rem,1.9vw,2rem)] leading-none tracking-tight italic">
-                {row.context}
-              </span>
-              <span className="note mt-2 block">{row.usage}</span>
-            </dt>
-            <dd className="mt-5 border-t border-line pt-4 leading-snug">
-              {row.items.join(", ")}.
+            <dt className="title lg:col-span-4">{row.context}</dt>
+            <dd className="note self-center lg:col-span-3">{row.usage}</dd>
+            <dd className="mt-1 self-center leading-snug font-medium lg:col-span-5 lg:mt-0">
+              {row.items.join(", ")}
             </dd>
           </div>
         ))}

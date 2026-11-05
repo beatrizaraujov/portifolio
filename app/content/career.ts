@@ -20,7 +20,7 @@ export const experiences: readonly Experience[] = [
     period: "08/2024 a 02/2025",
     place: "Capanema, PA",
     weight: "secundaria",
-    text: "Desenvolvimento e otimização de páginas web responsivas, manutenção preventiva e corretiva e identificação de falhas técnicas.",
+    text: "Desenvolvimento e otimização de páginas web responsivas, além de manutenção preventiva e corretiva e diagnóstico de falhas técnicas.",
     layers: ["interface"],
   },
   {
@@ -29,20 +29,20 @@ export const experiences: readonly Experience[] = [
     period: "02/2025 a 03/2026",
     place: "Capanema, PA",
     weight: "secundaria",
-    text: "Construí minha base de desenvolvimento junto à equipe de tecnologia, com documentação técnica de funcionalidades, análise de fluxos operacionais e comunicação entre usuários, clientes e desenvolvedores.",
+    text: "Documentação técnica de funcionalidades, análise de fluxos operacionais e comunicação entre usuários, clientes e desenvolvedores. Nesse período, construí minha base de desenvolvimento junto à equipe de tecnologia.",
     layers: [],
   },
   {
     organization: "Hougmain",
-    title: "Desenvolvedora Full Stack Júnior",
+    title: "Desenvolvedora Full Stack",
     period: "Atual",
     weight: "principal",
-    text: "Minha atuação vai além da interface: participo do desenvolvimento de sistemas de ponta a ponta, em produtos como NR-1 e iBaby Coach.",
+    text: "Participo do desenvolvimento de sistemas de ponta a ponta, em produtos como NR-1 e iBaby Coach.",
     layers: ["interface", "regras", "apis", "dados", "seguranca", "qualidade"],
     scope: [
       {
         label: "Produto",
-        text: "Funcionalidades e fluxos completos, implementação de regras de negócio e participação em decisões de arquitetura e na evolução dos produtos.",
+        text: "Funcionalidades e fluxos completos, regras de negócio e participação em decisões de arquitetura e na evolução dos produtos.",
       },
       {
         label: "Sistema",
@@ -59,7 +59,7 @@ export const experiences: readonly Experience[] = [
     title: "Desenvolvedora",
     period: "Independente",
     weight: "secundaria",
-    text: "Projetos próprios e desenvolvimento para cliente, com responsabilidade direta pela entrega, como o site institucional do Dr. Celso Schmidt.",
+    text: "Projetos próprios e desenvolvimento para cliente, com responsabilidade direta pela entrega.",
     layers: ["interface", "regras", "apis", "dados", "seguranca", "qualidade"],
   },
 ];
@@ -71,7 +71,7 @@ export const teaching = {
   program: "Minervas em STEM",
   place: "Campus Universitário de Salinópolis",
   period: "27 a 29 de outubro de 2026",
-  text: "Fui convidada a ministrar este minicurso e respondi pela preparação e pela condução das aulas: planejamento do conteúdo didático, apresentações, exercícios práticos e atividades para estudantes iniciantes, da lógica de programação aos fundamentos da linguagem.",
+  text: "Fui convidada a ministrar o minicurso e respondi pelo planejamento do conteúdo, pelas apresentações, pelos exercícios práticos e pela condução das aulas, voltadas a estudantes iniciantes.",
   topics: [
     "Lógica de programação",
     "Variáveis",
@@ -88,26 +88,13 @@ export const teaching = {
   } | null,
 } as const;
 
-/**
- * Participação como palestrante. Enquanto `event`, `date` e `topic` forem nulos,
- * o site exibe somente o que está confirmado.
- */
-export const talk = {
-  role: "Palestrante convidada",
-  description: "Imersão de tecnologia",
-  place: "Vitória, Espírito Santo",
-  event: null as string | null,
-  date: null as string | null,
-  topic: null as string | null,
-};
-
 /** Fotos reais do minicurso; os recortes ficam em public/fotos. */
 export const photos = {
   portrait: {
-    src: "/fotos/beatriz-foto.webp",
+    src: "/fotos/beatriz-retrato.webp",
     alt: "Beatriz Araújo em aula, em pé diante da projeção do slide, com blusa preta e cabelos cacheados.",
-    width: 280,
-    height: 350,
+    width: 1024,
+    height: 1280,
   },
   classroom: {
     src: "/fotos/ufpa-sala.webp",

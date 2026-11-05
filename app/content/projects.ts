@@ -14,8 +14,8 @@ export type ProjectLink = { label: string; href: string };
 export type Project = {
   slug: string;
   name: string;
-  /** Quebra do nome nos títulos de grande escala. */
-  titleLines: readonly string[];
+  /** Cor da linha do projeto: a mesma no mapa de percursos e no palco. */
+  color: "marinho" | "azul" | "aco";
   kind: string;
   summary: string;
   context: string;
@@ -23,7 +23,7 @@ export type Project = {
   role: string;
   solution: string;
   stack: readonly string[];
-  decisions: readonly string[];
+  decisions: readonly { title: string; text: string }[];
   status: string;
   links: readonly ProjectLink[];
   layers: readonly LayerId[];
@@ -46,18 +46,18 @@ export type ConfidentialProject = {
 export const projects: readonly Project[] = [
   {
     slug: "agroclimate-intelligence",
+    color: "marinho",
     name: "AgroClimate Intelligence",
-    titleLines: ["AgroClimate", "Intelligence"],
     kind: "Projeto próprio, código aberto",
     summary:
-      "Painel que cruza alertas de desmatamento por satélite com estatísticas oficiais de produção agrícola para calcular um índice de sustentabilidade por estado.",
+      "Painel que cruza alertas de desmatamento do MapBiomas com estatísticas de produção agrícola do IBGE e calcula um índice de sustentabilidade por estado.",
     context:
       "Projeto próprio de código aberto, sob licença MIT, sobre dados ambientais e agrícolas do Brasil.",
     problem:
-      "Os alertas do MapBiomas e as estatísticas do IBGE/SIDRA são públicos, mas estão em fontes separadas. Comparar pressão ambiental e produção por estado exigia cruzar essas informações manualmente.",
+      "Os alertas do MapBiomas e as estatísticas do IBGE/SIDRA são públicos, mas estão em fontes separadas. Comparar pressão ambiental e produção por estado exigia cruzar os dados manualmente.",
     role: "Concepção, desenvolvimento e publicação: interface, integração com as APIs, cálculo do índice, testes e automação de integração contínua.",
     solution:
-      "Mapa interativo do Brasil que refiltra todo o painel por estado, índice de sustentabilidade de 0 a 100, dashboard de produção com série histórica de 2019 a 2024 e página de metodologia que documenta fontes, fórmula e limitações.",
+      "Mapa interativo do Brasil que refiltra o painel por estado, índice de sustentabilidade de 0 a 100, série histórica de produção de 2019 a 2024 e página de metodologia com fontes, fórmula e limitações.",
     stack: [
       "Next.js",
       "React",
@@ -68,10 +68,22 @@ export const projects: readonly Project[] = [
       "GitHub Actions",
     ],
     decisions: [
-      "O índice utiliza intensidades, não totais. Como a API devolve até 500 registros, uma fórmula baseada em contagem bruta saturaria em recortes grandes. A normalização pelo território mantém a comparação significativa.",
-      "A indisponibilidade da fonte é visível. Sem dados ao vivo, o painel recorre a um snapshot de contingência e informa isso na tela, em vez de exibir um índice calculado sobre uma lista vazia.",
-      "As credenciais permanecem no servidor. O Route Handler renova o JWT do MapBiomas a partir do campo exp e expõe apenas uma consulta fixa, de modo que a rota não funciona como proxy aberto.",
-      "O cálculo do índice é uma função pura com testes, incluindo um caso de regressão para a saturação. Lint, tipos, testes e build são executados no CI a cada push.",
+      {
+        title: "Índice calculado por intensidade",
+        text: "Como a API devolve até 500 registros, uma fórmula baseada em contagem bruta saturaria em recortes grandes. A normalização pelo território mantém a comparação significativa.",
+      },
+      {
+        title: "Contingência declarada na tela",
+        text: "Sem dados ao vivo, o painel utiliza um snapshot e informa essa condição, em vez de calcular o índice sobre uma lista vazia.",
+      },
+      {
+        title: "Credenciais restritas ao servidor",
+        text: "O Route Handler renova o JWT do MapBiomas a partir do campo exp e expõe apenas uma consulta fixa, o que impede o uso da rota como proxy aberto.",
+      },
+      {
+        title: "Cálculo isolado e testado",
+        text: "O índice é uma função pura com testes, incluindo um caso de regressão para a saturação. Lint, tipos, testes e build são executados no CI a cada push.",
+      },
     ],
     status:
       "Publicado, com código aberto. O índice é válido como comparação entre regiões dentro do mesmo snapshot, limitação registrada na própria interface.",
@@ -103,11 +115,11 @@ export const projects: readonly Project[] = [
   },
   {
     slug: "celso-schmidt-advocacia",
+    color: "aco",
     name: "Dr. Celso Schmidt",
-    titleLines: ["Dr. Celso Schmidt", "Site institucional"],
-    kind: "Desenvolvimento independente para cliente",
+    kind: "Trabalho independente para cliente",
     summary:
-      "Site institucional de um escritório de advocacia empresarial em Capanema, no Pará, desenvolvido e entregue como trabalho independente.",
+      "Site institucional de um escritório de advocacia empresarial em Capanema, no Pará.",
     context:
       "Trabalho independente, realizado para o Dr. Celso Ricardo Schmidt, consultor e advogado empresarial em Capanema (PA).",
     problem:
@@ -117,9 +129,18 @@ export const projects: readonly Project[] = [
       "Site responsivo que organiza a apresentação do advogado, as frentes de consultoria, as áreas de atuação e os canais de contato em uma navegação direta.",
     stack: ["Next.js", "React", "TypeScript/JavaScript", "Tailwind CSS"],
     decisions: [
-      "O conteúdo está presente no HTML inicial, e os metadados são voltados à busca local por advocacia empresarial.",
-      "Os componentes sustentam a repetição de serviços e etapas sem duplicar marcação.",
-      "O celular tem composição própria, que preserva a hierarquia tipográfica e a chamada de agendamento.",
+      {
+        title: "Conteúdo no HTML inicial",
+        text: "Os textos já chegam no HTML inicial, e os metadados são direcionados à busca local por advocacia empresarial.",
+      },
+      {
+        title: "Componentes reutilizáveis",
+        text: "Serviços e etapas compartilham a mesma estrutura, sem duplicação de marcação.",
+      },
+      {
+        title: "Composição própria para celular",
+        text: "A hierarquia tipográfica e a chamada de agendamento são preservadas em telas pequenas.",
+      },
     ],
     status: "Publicado e acessível no domínio do escritório.",
     links: [
@@ -144,8 +165,8 @@ export const projects: readonly Project[] = [
   },
   {
     slug: "finanly",
+    color: "azul",
     name: "Finanly",
-    titleLines: ["Finanly"],
     kind: "Projeto próprio, MVP",
     summary:
       "Aplicação mobile-first que reúne controle financeiro e agenda de encomendas, com autenticação e persistência de dados.",
@@ -158,11 +179,17 @@ export const projects: readonly Project[] = [
       "Painel com saldo, entradas e saídas, fluxo de nova transação em etapas, histórico e calendário de encomendas, projetados primeiro para o celular.",
     stack: ["React", "JavaScript", "Vite", "Tailwind CSS", "Supabase"],
     decisions: [
-      "Supabase para autenticação e persistência, sem a manutenção de um back-end dedicado na fase de validação do MVP.",
-      "O fluxo de nova transação é separado do painel, com componentes próprios para a escolha do tipo e o preenchimento do formulário.",
+      {
+        title: "Supabase para autenticação e persistência",
+        text: "A escolha dispensou a manutenção de um back-end dedicado durante a validação do MVP.",
+      },
+      {
+        title: "Fluxo de transação separado do painel",
+        text: "A escolha do tipo e o preenchimento do formulário têm componentes próprios.",
+      },
     ],
     status:
-      "MVP publicado. Como o banco de dados utiliza plano gratuito, o ambiente pode entrar em inatividade; o vídeo de demonstração registra a aplicação em uso.",
+      "MVP publicado. O banco de dados utiliza plano gratuito e pode entrar em inatividade; o vídeo de demonstração registra a aplicação em uso.",
     links: [
       { label: "Acessar o projeto", href: "https://finanly-sigma.vercel.app" },
       {

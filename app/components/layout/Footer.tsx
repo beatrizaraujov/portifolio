@@ -4,8 +4,8 @@ import { navigation, site, socials } from "@/app/content/site";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-line print:hidden">
-      <div className="page grid gap-8 py-10 sm:grid-cols-2 lg:grid-cols-12">
+    <footer className="escuro print:hidden">
+      <div className="page grid gap-8 border-t border-line py-10 sm:grid-cols-2 lg:grid-cols-12">
         <div className="lg:col-span-5">
           <p className="tag">{site.fullName}</p>
           <p className="meta mt-1">
@@ -42,7 +42,7 @@ export default function Footer() {
         </ul>
 
         <p className="meta lg:col-span-2 lg:text-right">
-          <a href="#conteudo" className="hover:text-fg">
+          <a href="#conteudo" className="inline-block py-1 hover:text-fg">
             Voltar ao início
           </a>
           <br />

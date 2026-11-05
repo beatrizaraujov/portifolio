@@ -1,22 +1,24 @@
 import type { ReactNode } from "react";
 
-/** Abertura igual em todas as seções: número, título e, se houver, uma nota à direita. */
+import { TrackRule } from "@/app/components/ui/Route";
+
+/** Abertura igual em todas as seções: a linha, o título e, se houver, uma nota. */
 export default function SectionHead({
-  number,
   title,
   aside,
 }: {
-  number: string;
   title: ReactNode;
   aside?: ReactNode;
 }) {
   return (
-    <header className="cols items-end">
-      <div className="lg:col-span-8">
-        <p className="tag fx-up">{number}</p>
-        <h2 className="mega fx-title mt-4">{title}</h2>
+    <header>
+      <TrackRule />
+      <div className="cols mt-group items-end">
+        <h2 className="mega fx-title lg:col-span-7">{title}</h2>
+        {aside ? (
+          <div className="fx-up lg:col-span-4 lg:col-start-9">{aside}</div>
+        ) : null}
       </div>
-      {aside ? <div className="fx-up lg:col-span-4">{aside}</div> : null}
     </header>
   );
 }

@@ -2,21 +2,16 @@ import Image from "next/image";
 
 import type { ProjectImage } from "@/app/content/projects";
 
-/** Barra de janela: três marcadores e o endereço ou nome do arquivo. */
+/** Faixa da janela: somente o endereço ou o nome do arquivo. */
 export function WindowBar({ address }: { address: string }) {
   return (
     <span aria-hidden className="frame-bar">
-      <span className="frame-dots">
-        <i />
-        <i />
-        <i />
-      </span>
-      <span className="frame-address">{address}</span>
+      {address}
     </span>
   );
 }
 
-/** Captura real em janela de navegador. */
+/** Captura real do sistema publicado. */
 export function Frame({
   image,
   address,
@@ -67,7 +62,7 @@ export function Phone({
   );
 }
 
-/** Foto real como cópia impressa: margem clara, legenda e contorno deslocado. */
+/** Foto real, com cantos largos e legenda abaixo. */
 export function Print({
   src,
   alt,
@@ -91,20 +86,21 @@ export function Print({
 }) {
   return (
     <figure
-      className={`print-frame fx-wipe ${className}`}
+      className={`print fx-wipe ${className}`}
       style={delay ? ({ "--d": `${delay}ms` } as React.CSSProperties) : undefined}
     >
-      <span className="print-sheet">
+      <span className="print-photo">
         <Image
           src={src}
           alt={alt}
           width={width}
           height={height}
           sizes={sizes}
+          quality={90}
           className={shape === "wide" ? "photo-wide" : "photo-portrait"}
         />
-        <figcaption className="print-caption">{caption}</figcaption>
       </span>
+      <figcaption className="print-caption">{caption}</figcaption>
     </figure>
   );
 }

@@ -1,72 +1,50 @@
-import { techContexts } from "@/app/content/career";
 import { site, socials } from "@/app/content/site";
-import { Arrow, ExternalLink } from "@/app/components/ui/ExternalLink";
-import SystemOrbit from "@/app/components/ui/SystemOrbit";
-
-const techs = [...new Set(techContexts.flatMap((row) => row.items))];
-
-function TickerTrack() {
-  return (
-    <ul className="ticker-track">
-      {techs.map((tech) => (
-        <li key={tech}>{tech}</li>
-      ))}
-    </ul>
-  );
-}
+import { Arrow } from "@/app/components/ui/ExternalLink";
+import FlowMap from "@/app/components/ui/FlowMap";
 
 export default function Intro() {
   return (
-    <>
-      <section className="page hero cols">
-        <div className="lg:col-span-7">
+    <section className="escuro">
+      <div className="page hero cols">
+        <div className="lg:col-span-5">
           <p className="tag rise">{site.role}</p>
-          <h1 className="hero-name mt-5 font-display">
-            <span className="word rise rise-2">Beatriz</span>{" "}
-            <em className="word rise rise-3">Araújo</em>
-            <span className="sr-only">, {site.role}</span>
+          <h1 className="hero-name rise rise-2 mt-4">
+            Beatriz
+            <br />
+            Araújo
           </h1>
-          <p className="hero-line rise rise-4 mt-6">
-            Desenvolvo sistemas da interface aos dados e <em>ensino</em> como
-            eles funcionam.
+          <p className="lede rise rise-3 mt-group max-w-[30rem]">
+            Desenvolvo sistemas web, da interface ao banco de dados, na Hougmain e
+            em projetos independentes. Em outubro de 2026, ministrei um minicurso
+            de Python na UFPA.
           </p>
 
-          <ul className="fade-late mt-group flex flex-wrap gap-x-7 gap-y-3">
+          <ul className="fade-late mt-group flex flex-wrap gap-3">
             <li>
-              <a href="#trabalho" className="link">
+              <a href="#projetos" className="btn btn-primary">
                 Ver projetos
                 <Arrow direction="down" />
               </a>
             </li>
             <li>
-              <ExternalLink href={socials.curriculo}>
+              <a
+                href={socials.curriculo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-line"
+              >
                 Currículo em PDF
-              </ExternalLink>
+                <span className="sr-only"> (abre em nova aba)</span>
+                <Arrow />
+              </a>
             </li>
           </ul>
         </div>
 
-        <div className="hero-orbit fade-late lg:col-span-5">
-          <SystemOrbit />
+        <div className="fade-late min-w-0 lg:col-span-7">
+          <FlowMap />
         </div>
-      </section>
-
-      {/* A lista completa e acessível está na seção de tecnologias. */}
-      <div aria-hidden className="ticker">
-        <TickerTrack />
-        <TickerTrack />
       </div>
-
-      <section aria-label="Apresentação" className="page cols section-y">
-        <p className="tag fx-up self-start lg:col-span-3">Apresentação</p>
-        <p className="statement fx-up lg:col-span-8 lg:col-start-5">
-          Sou desenvolvedora na <strong>Hougmain</strong>, onde participo do
-          desenvolvimento de <strong>produtos reais</strong>, da interface ao
-          banco de dados. Também realizo <strong>projetos independentes</strong>{" "}
-          e, em outubro de 2026, ministrei um{" "}
-          <strong>minicurso de Python na UFPA</strong>.
-        </p>
-      </section>
-    </>
+    </section>
   );
 }

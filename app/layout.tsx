@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Bodoni_Moda, DM_Mono, Instrument_Sans } from "next/font/google";
+import { Bricolage_Grotesque, JetBrains_Mono } from "next/font/google";
 
 import "./globals.css";
 import Header from "./components/layout/Header";
@@ -7,24 +7,16 @@ import Motion from "./components/ui/Motion";
 import Footer from "./components/layout/Footer";
 import { site, socials } from "./content/site";
 
-const bodoni = Bodoni_Moda({
+const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],
-  style: ["normal", "italic"],
   axes: ["opsz"],
-  variable: "--font-bodoni",
+  variable: "--font-bricolage",
   display: "swap",
 });
 
-const instrument = Instrument_Sans({
+const jetbrains = JetBrains_Mono({
   subsets: ["latin"],
-  variable: "--font-instrument",
-  display: "swap",
-});
-
-const dmMono = DM_Mono({
-  subsets: ["latin"],
-  weight: ["400"],
-  variable: "--font-dm-mono",
+  variable: "--font-jetbrains",
   display: "swap",
 });
 
@@ -36,7 +28,6 @@ export const metadata: Metadata = {
   description: site.description,
   keywords: [
     "desenvolvedora full stack",
-    "desenvolvedora júnior",
     "React",
     "Next.js",
     "TypeScript",
@@ -59,8 +50,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#12110f",
-  colorScheme: "dark",
+  themeColor: "#0d0e11",
+  colorScheme: "light",
 };
 
 const personJsonLd = {
@@ -69,7 +60,7 @@ const personJsonLd = {
   name: site.fullName,
   alternateName: site.name,
   jobTitle: site.role,
-  image: `${site.url}/fotos/beatriz-foto.webp`,
+  image: `${site.url}/fotos/beatriz-retrato.webp`,
   url: site.url,
   email: `mailto:${site.email}`,
   sameAs: [socials.github, socials.linkedin],
@@ -84,7 +75,7 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`${bodoni.variable} ${instrument.variable} ${dmMono.variable}`}
+      className={`${bricolage.variable} ${jetbrains.variable}`}
     >
       <body className="flex min-h-screen flex-col">
         <script

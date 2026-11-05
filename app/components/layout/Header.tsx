@@ -56,7 +56,7 @@ export default function Header() {
   const current = pathname === "/" ? visible : null;
 
   return (
-    <header className="masthead print:hidden">
+    <header className="escuro masthead print:hidden">
       <nav
         aria-label="Navegação principal"
         className="page flex h-16 items-center justify-between gap-6"
@@ -64,9 +64,9 @@ export default function Header() {
         <Link
           href="/"
           onClick={() => setOpen(false)}
-          className="font-display text-[1.375rem] leading-none tracking-[-0.015em] transition-colors hover:text-accent"
+          className="brand"
         >
-          Beatriz <em>Araújo</em>
+          Beatriz Araújo
           <span className="sr-only"> (início)</span>
         </Link>
 
@@ -122,7 +122,7 @@ export default function Header() {
               <Link
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="block py-3 font-display text-[clamp(2.5rem,12vw,3.5rem)] leading-tight tracking-[-0.025em] italic"
+                className="block py-3 font-display text-[clamp(2.25rem,11vw,3.25rem)] leading-tight font-bold tracking-[-0.03em]"
               >
                 {item.label}
               </Link>

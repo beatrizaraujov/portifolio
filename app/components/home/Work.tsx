@@ -6,37 +6,36 @@ import {
   type Project,
 } from "@/app/content/projects";
 import { Arrow, ExternalLink } from "@/app/components/ui/ExternalLink";
-import Constellation, { layerNames } from "@/app/components/ui/Constellation";
+import { LayerTrack, layerNames, RouteStops } from "@/app/components/ui/Route";
 import SectionHead from "@/app/components/ui/SectionHead";
 import Stage from "@/app/components/ui/Stage";
-import { SketchIbaby, SketchNr1 } from "@/app/components/ui/SystemSketch";
 
-const sketches: Record<string, React.ReactNode> = {
-  "NR-1": <SketchNr1 />,
-  "iBaby Coach": <SketchIbaby />,
+/** Mesmas etapas das descrições públicas de cada produto, sem detalhes internos. */
+const routes: Record<string, readonly string[]> = {
+  "NR-1": [
+    "Questionários",
+    "Anonimato",
+    "Processamento de respostas",
+    "Gestão com controle de acesso",
+  ],
+  "iBaby Coach": [
+    "Gestão",
+    "Regras de negócio",
+    "Atividades",
+    "Acompanhamento",
+  ],
 };
 
 export default function Work() {
   return (
-    <section id="trabalho" className="page">
+    <section id="projetos" className="page mt-section">
       <SectionHead
-        number="01"
-        title={
-          <>
-            Trabalho <em>selecionado</em>
-          </>
-        }
+        title="Projetos"
         aside={
-          <div className="flex items-start gap-5">
-            <Constellation
-              active={["interface", "regras", "dados", "qualidade"]}
-              label="Exemplo de figura de camadas"
-            />
-            <p className="note">
-              Cada figura liga as camadas do sistema em que participei. Quanto
-              mais pontos ligados, maior a extensão do trabalho.
-            </p>
-          </div>
+          <p className="note">
+            A trilha de cada projeto indica as camadas em que atuei: interface,
+            regras, APIs, dados, segurança e testes.
+          </p>
         }
       />
 
@@ -55,21 +54,20 @@ function ProjectBlock({ project }: { project: Project }) {
   const caption = project.detailImage?.caption;
 
   return (
-    <article className="mt-block">
-      <p className="tag fx-up">{project.kind}</p>
-      <h3 className="mega-md fx-title mt-3">
-        <Link href={href} className="transition-colors hover:text-accent">
-          {project.titleLines[0]}
-          {project.titleLines[1] ? (
-            <>
-              {" "}
-              <em>{project.titleLines[1]}</em>
-            </>
-          ) : null}
-        </Link>
-      </h3>
+    <article
+      className="mt-block"
+      style={{ "--line": `var(--${project.color})` } as React.CSSProperties}
+    >
+      <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-2">
+        <h3 className="mega-md fx-title">
+          <Link href={href} className="transition-colors hover:text-accent">
+            {project.name}
+          </Link>
+        </h3>
+        <p className="tag fx-up">{project.kind}</p>
+      </div>
 
-      <Link href={href} tabIndex={-1} className="mt-head block">
+      <Link href={href} tabIndex={-1} className="mt-group block">
         <Stage project={project} />
       </Link>
       {caption ? <p className="note mt-3">{caption}</p> : null}
@@ -77,31 +75,27 @@ function ProjectBlock({ project }: { project: Project }) {
       <div className="cols mt-group items-start">
         <p className="lede fx-up lg:col-span-6">{project.summary}</p>
         <div className="fx-up lg:col-span-5 lg:col-start-8">
-          <div className="flex flex-wrap items-start gap-4">
-            <Constellation
-              active={project.layers}
-              label={`Camadas de participação em ${project.name}`}
-            />
-            <div className="min-w-0 flex-[1_1_9rem]">
-              <p className="meta !text-fg">{layerNames(project.layers)}</p>
-              <p className="meta mt-2 [overflow-wrap:anywhere]">
-                {project.stack.join(", ")}
-              </p>
-            </div>
-          </div>
+          <LayerTrack
+            active={project.layers}
+            label={`Camadas de participação em ${project.name}`}
+          />
+          <p className="meta mt-2 !text-fg">{layerNames(project.layers)}</p>
+          <p className="meta mt-1 [overflow-wrap:anywhere]">
+            {project.stack.join(", ")}
+          </p>
 
-          <div className="mt-group flex flex-wrap items-center justify-between gap-5">
-            <ExternalLink href={project.links[0].href}>
-              {project.links[0].label}
-            </ExternalLink>
+          <div className="mt-group flex flex-wrap items-center gap-x-6 gap-y-3">
             <Link
               href={href}
               aria-label={`Ler o estudo do projeto ${project.name}`}
-              className="orb"
+              className="btn"
             >
               Ler o estudo
               <Arrow direction="right" />
             </Link>
+            <ExternalLink href={project.links[0].href}>
+              {project.links[0].label}
+            </ExternalLink>
           </div>
         </div>
       </div>
@@ -113,48 +107,38 @@ function Confidential() {
   return (
     <div className="mt-block">
       <div className="cols items-end">
-        <h3 className="mega-md fx-title lg:col-span-6">
-          Produtos <em>na Hougmain</em>
-        </h3>
-        <p className="note fx-up lg:col-span-6">
+        <h3 className="mega-md fx-title lg:col-span-6">Produtos na Hougmain</h3>
+        <p className="note fx-up lg:col-span-5 lg:col-start-8">
           Participo do desenvolvimento destes produtos como integrante da equipe,
           com React, Next.js, JavaScript e TypeScript. Por serem produtos da
-          empresa, telas, código, dados e decisões técnicas específicas não são
-          divulgados.
+          empresa, não divulgo telas, código, dados nem decisões técnicas
+          específicas.
         </p>
       </div>
 
-      <div className="mt-head grid gap-4 lg:grid-cols-2">
+      <div className="mt-group grid gap-4 lg:grid-cols-2">
         {confidentialProjects.map((project, index) => (
           <article
             key={project.name}
-            className="panel panel-pad panel-hover fx-up"
+            className="panel panel-pad fx-up"
             style={{ "--d": `${index * 120}ms` } as React.CSSProperties}
           >
             <h4 className="title">{project.name}</h4>
-            <figure className="mt-group">
-              {sketches[project.name]}
-              <figcaption className="note mt-4">
-                Representação abstrata, sem telas, dados ou arquitetura reais.
-              </figcaption>
-            </figure>
+            <p className="mt-2">{project.purpose}</p>
 
-            <dl className="mt-group grid gap-y-4">
-              <Row label="Finalidade" text={project.purpose} />
-              <Row label="Escopo" text={project.scope} />
-            </dl>
+            <div className="mt-group grid gap-5 sm:grid-cols-2">
+              <RouteStops stops={routes[project.name]} />
+              <div>
+                <p className="meta">Escopo</p>
+                <p className="mt-1 leading-snug">{project.scope}</p>
+              </div>
+            </div>
           </article>
         ))}
       </div>
-    </div>
-  );
-}
-
-function Row({ label, text }: { label: string; text: string }) {
-  return (
-    <div className="grid gap-x-5 border-t border-line pt-3 sm:grid-cols-[8rem_1fr]">
-      <dt className="meta pt-0.5">{label}</dt>
-      <dd className="leading-snug">{text}</dd>
+      <p className="note fx-up mt-3">
+        Percursos esquemáticos, sem correspondência com telas ou arquitetura reais.
+      </p>
     </div>
   );
 }

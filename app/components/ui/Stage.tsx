@@ -2,7 +2,7 @@ import type { Project } from "@/app/content/projects";
 import { addressOf, Frame, Phone } from "@/app/components/ui/Frame";
 
 /**
- * Mesmo palco para todos os projetos: muda só o que há dentro.
+ * Mesmo palco para todos os projetos: a cor é a da linha do projeto no mapa.
  * Duas telas, computador e celular ou somente o celular, conforme as capturas.
  */
 export default function Stage({
@@ -16,16 +16,22 @@ export default function Stage({
   const portrait = project.image.height > project.image.width;
 
   return (
-    <div className="panel stage fx-stage">
-      {portrait ? (
-        <svg aria-hidden viewBox="0 0 1000 1000" className="stage-rings fx-spin">
-          <circle cx="500" cy="500" r="490" className="dotted" />
-          <circle cx="500" cy="500" r="360" />
-          <circle cx="500" cy="500" r="232" />
-        </svg>
-      ) : null}
+    <div
+      className="stage fx-stage"
+      style={{ "--line": `var(--${project.color})` } as React.CSSProperties}
+    >
+      <svg
+        aria-hidden
+        viewBox="0 0 1000 420"
+        preserveAspectRatio="xMidYMid slice"
+        className="stage-track"
+      >
+        <path d="M-20 330 H360 Q384 330 401 313 L560 154 Q577 137 601 137 H1020" />
+        <circle cx="210" cy="330" r="11" />
+        <circle cx="800" cy="137" r="11" />
+      </svg>
 
-      <div data-tilt className="stage-inner">
+      <div className="stage-inner">
         {portrait ? (
           <Phone
             image={project.image}

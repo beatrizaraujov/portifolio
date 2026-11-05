@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import {
   education,
   experiences,
-  talk,
   teaching,
   techContexts,
 } from "@/app/content/career";
@@ -57,7 +56,7 @@ export default function CurriculoPage() {
 
       <Block title="Resumo">
         <p>
-          Desenvolvedora Full Stack Júnior, com formação em Análise e
+          Desenvolvedora Full Stack, com formação em Análise e
           Desenvolvimento de Sistemas. Participo da construção de sistemas de
           ponta a ponta, conectando interfaces, regras de negócio, APIs, bancos
           de dados, autenticação, segurança e testes.
@@ -109,9 +108,6 @@ export default function CurriculoPage() {
           <strong className="font-medium">{teaching.course}</strong>,{" "}
           {teaching.role.toLowerCase()}. {teaching.institution}, programa{" "}
           {teaching.program}, {teaching.place}, {teaching.period}.
-        </p>
-        <p className="mt-1">
-          {talk.role}: {talk.description.toLowerCase()} em {talk.place}.
         </p>
       </Block>
 

@@ -10,7 +10,7 @@ engenharia: projetos desenvolvidos, processo de trabalho e trajetória.
 ## Visão geral
 
 Portfólio profissional de Maria Beatriz de Araújo Viana, Desenvolvedora Full
-Stack Júnior. A página inicial apresenta o trabalho selecionado, a trajetória,
+Stack. A página inicial apresenta os projetos, a trajetória,
 a atuação em ensino, as tecnologias por contexto de uso e os canais de contato.
 Os projetos públicos possuem páginas próprias. Os produtos da Hougmain são
 apresentados apenas em descrição geral, sem telas ou dados internos.
@@ -53,14 +53,16 @@ se desloque, e leitores de tela anunciam a mudança.
 
 ### Interface e performance
 
-- **Direção visual.** Fundo escuro editorial, papel na seção de ensino e uma
-  única cor de destaque. Tokens definidos em `app/globals.css`.
-- **Figura de camadas.** Componente `Constellation`: cada projeto e experiência
-  declara as camadas em que houve participação, e a forma é derivada desses
-  dados, com equivalente textual para leitores de tela.
+- **Direção visual.** Linhas de percurso sobre preto, cinza e azul-marinho. Cada
+  projeto público tem uma linha própria. Tokens definidos em `app/globals.css`.
+- **Mapa de percursos.** Componente `FlowMap`: cada linha acompanha uma ação real
+  de um projeto (`app/content/flows.ts`), atravessando as camadas do sistema, com
+  controles de pausa e avanço e equivalente textual para leitores de tela.
+- **Trilhas de camadas.** Componentes em `Route.tsx`: cada projeto e experiência
+  declara as camadas em que houve participação, e a trilha é derivada desses dados.
 - **Imagens.** Capturas reais dos sistemas publicados, em WebP, com dimensões
   declaradas e `sizes` por breakpoint.
-- **Fontes servidas localmente** via `next/font`: Bodoni Moda, Instrument Sans e DM Mono.
+- **Fontes servidas localmente** via `next/font`: Bricolage Grotesque e JetBrains Mono.
 
 ### Acessibilidade
 
@@ -79,11 +81,11 @@ gerados pela aplicação, e página 404 própria.
 
 ```
 app/
-├── content/               # fonte única: site.ts, projects.ts e career.ts
+├── content/               # fonte única: site.ts, projects.ts, career.ts e flows.ts
 ├── components/
 │   ├── layout/            # Header e Footer
 │   ├── home/              # seções da página inicial
-│   └── ui/                # figuras, molduras e links
+│   └── ui/                # mapa, trilhas, molduras e links
 ├── projetos/[slug]/       # estudo de cada projeto público
 ├── curriculo/             # origem do PDF do currículo
 ├── api/send/route.ts      # processamento do formulário de contato
@@ -92,8 +94,7 @@ scripts/gerar-curriculo.mjs  # imprime /curriculo em PDF com o Chrome instalado
 ```
 
 O site e o currículo consomem o mesmo conteúdo. Para publicar o certificado da
-UFPA ou os dados da palestra em Vitória, preencha `teaching.certificate` e
-`talk` em `app/content/career.ts`.
+UFPA, preencha `teaching.certificate` em `app/content/career.ts`.
 
 ---
 
