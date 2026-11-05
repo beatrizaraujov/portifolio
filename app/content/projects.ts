@@ -218,9 +218,41 @@ export const confidentialProjects: readonly ConfidentialProject[] = [
     scope:
       "Gestão, questionários, anonimato, controle de acesso e processamento de respostas.",
   },
-  {
-    name: "iBaby Coach",
-    purpose: "Gestão e acompanhamento de atividades.",
-    scope: "Diferentes fluxos e regras de negócio.",
-  },
 ];
+
+/**
+ * Solução desenvolvida como contratada da Hougmain. Somente texto: sem links,
+ * telas, nome de cliente, números da operação ou dados internos.
+ */
+export const operationalSolution = {
+  title: "Automação e Inteligência Operacional",
+  summary:
+    "Sistemas desenvolvidos como contratada da Hougmain para uma empresa de locação de escoramentos e andaimes. Parte da operação dependia de controles e consultas manuais; atuei no desenvolvimento Full Stack de duas ferramentas integradas, que digitalizam esses processos e dão visibilidade sobre os dados da operação.",
+  route: ["Sistema de gestão da empresa", "Planejador Leve", "Dashboard"],
+  systems: [
+    {
+      name: "Planejador Leve",
+      role: "Organização e gestão da operação",
+      text: "Reúne contratos, trechos, cargas, devoluções, remanejamentos, romaneios e visitas. O planejamento resulta do que é lançado nesses módulos, e as regras de negócio valem na própria API: a carga não ultrapassa o trecho e a devolução não ultrapassa o saldo em obra.",
+      highlights: [
+        "Sincronização automática com o sistema de gestão a cada 15 minutos, com trava contra execuções simultâneas",
+        "Registro diário dos indicadores para o histórico da operação",
+        "Projeção de contratos em 30 e 60 dias, relatórios e exportações",
+        "Autenticação com JWT e controle de acesso por perfil",
+      ],
+      stack: ["React", "Redux Toolkit", "Node.js", "Express", "PostgreSQL", "Zod", "Docker", "GitHub Actions"],
+    },
+    {
+      name: "Dashboard",
+      role: "Visibilidade e inteligência sobre a operação",
+      text: "Consome a API do Planejador como fonte única de dados e transforma a operação em indicadores: pátio e campo, ociosidade, estoque, evolução de contratos, sublocação, visitas e histórico mensal.",
+      highlights: [
+        "Previsão de falta de equipamento por carga",
+        "Sugestão de itens substitutos disponíveis na data",
+        "Gráficos de fluxo, projeção do pátio e mapa de obras",
+        "Login com a mesma conta do Planejador",
+      ],
+      stack: ["React", "TypeScript", "TanStack Query", "Zustand", "Chart.js"],
+    },
+  ],
+} as const;

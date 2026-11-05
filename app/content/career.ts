@@ -37,7 +37,7 @@ export const experiences: readonly Experience[] = [
     title: "Desenvolvedora Full Stack",
     period: "Atual",
     weight: "principal",
-    text: "Participo do desenvolvimento de sistemas de ponta a ponta, em produtos como NR-1 e iBaby Coach.",
+    text: "Participo do desenvolvimento de sistemas de ponta a ponta, em produtos como NR-1, Planejador Leve e Dashboard.",
     layers: ["interface", "regras", "apis", "dados", "seguranca", "qualidade"],
     scope: [
       {

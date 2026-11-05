@@ -6,7 +6,7 @@ import {
   teaching,
   techContexts,
 } from "@/app/content/career";
-import { projects } from "@/app/content/projects";
+import { operationalSolution, projects } from "@/app/content/projects";
 import { site, socials } from "@/app/content/site";
 
 export const metadata: Metadata = {
@@ -85,6 +85,20 @@ export default function CurriculoPage() {
 
       <Block title="Projetos">
         <ul className="space-y-3 print:space-y-[4pt]">
+          <li className="break-inside-avoid">
+            <p>
+              <strong className="font-medium">Planejador Leve e Dashboard</strong>
+              <span className="meta ml-2">Contratada pela Hougmain</span>
+            </p>
+            <p>
+              {operationalSolution.title}: sistemas integrados para gestão de
+              contratos, cargas e devoluções, com sincronização automática, regras
+              validadas na API e painel de indicadores da operação.
+            </p>
+            <p className="meta">
+              React, TypeScript, Node.js, Express, PostgreSQL, Docker, GitHub Actions
+            </p>
+          </li>
           {projects.map((project) => (
             <li key={project.slug} className="break-inside-avoid">
               <p>

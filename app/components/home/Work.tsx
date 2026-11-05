@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import {
   confidentialProjects,
+  operationalSolution,
   projects,
   type Project,
 } from "@/app/content/projects";
@@ -17,12 +18,6 @@ const routes: Record<string, readonly string[]> = {
     "Anonimato",
     "Processamento de respostas",
     "Gestão com controle de acesso",
-  ],
-  "iBaby Coach": [
-    "Gestão",
-    "Regras de negócio",
-    "Atividades",
-    "Acompanhamento",
   ],
 };
 
@@ -104,25 +99,53 @@ function ProjectBlock({ project }: { project: Project }) {
 }
 
 function Confidential() {
+  const { title, summary, route, systems } = operationalSolution;
+
   return (
     <div className="mt-block">
-      <div className="cols items-end">
-        <h3 className="mega-md fx-title lg:col-span-6">Produtos na Hougmain</h3>
-        <p className="note fx-up lg:col-span-5 lg:col-start-8">
-          Participo do desenvolvimento destes produtos como integrante da equipe,
-          com React, Next.js, JavaScript e TypeScript. Por serem produtos da
-          empresa, não divulgo telas, código, dados nem decisões técnicas
-          específicas.
-        </p>
+      <h3 className="mega-md fx-title">Trabalho na Hougmain</h3>
+      <p className="note fx-up mt-3 max-w-[44rem]">
+        Por serem sistemas de uso interno, não divulgo links, telas, código nem
+        dados. As descrições abaixo tratam apenas do escopo e da engenharia
+        envolvida.
+      </p>
+
+      <div className="cols mt-head items-start">
+        <div className="lg:col-span-7">
+          <h4 className="title fx-up">{title}</h4>
+          <p className="lede fx-up mt-3">{summary}</p>
+        </div>
+        <div className="fx-up lg:col-span-4 lg:col-start-9">
+          <p className="meta mb-3">Como os sistemas se conectam</p>
+          <RouteStops stops={route} />
+        </div>
       </div>
 
       <div className="mt-group grid gap-4 lg:grid-cols-2">
-        {confidentialProjects.map((project, index) => (
+        {systems.map((system, index) => (
           <article
-            key={project.name}
+            key={system.name}
             className="panel panel-pad fx-up"
             style={{ "--d": `${index * 120}ms` } as React.CSSProperties}
           >
+            <h4 className="title">{system.name}</h4>
+            <p className="mt-1 font-semibold">{system.role}</p>
+            <p className="mt-3">{system.text}</p>
+            <ul className="mt-group grid gap-2 border-t border-line pt-4">
+              {system.highlights.map((item) => (
+                <li key={item} className="leading-snug">
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <p className="meta mt-group">{system.stack.join(", ")}</p>
+          </article>
+        ))}
+      </div>
+
+      <div className="mt-head grid gap-4 lg:grid-cols-2">
+        {confidentialProjects.map((project) => (
+          <article key={project.name} className="panel panel-pad fx-up">
             <h4 className="title">{project.name}</h4>
             <p className="mt-2">{project.purpose}</p>
 
@@ -136,9 +159,6 @@ function Confidential() {
           </article>
         ))}
       </div>
-      <p className="note fx-up mt-3">
-        Percursos esquemáticos, sem correspondência com telas ou arquitetura reais.
-      </p>
     </div>
   );
 }
