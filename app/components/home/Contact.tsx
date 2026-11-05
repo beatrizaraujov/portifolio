@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { ArrowUpRight, Check, TriangleAlert } from "lucide-react";
 
 import { site, socials } from "@/app/content/site";
+import { ExternalLink } from "@/app/components/ui/ExternalLink";
+import SectionHead from "@/app/components/ui/SectionHead";
 
 type Status =
   | { kind: "idle" }
@@ -11,8 +12,8 @@ type Status =
   | { kind: "sent"; nome: string }
   | { kind: "error"; message: string };
 
-const campoClasses =
-  "w-full rounded-xl border border-white/8 bg-ink-950 px-4 py-3 text-sm text-chalk transition-colors placeholder:text-faint/60 focus:border-accent-400/60 focus:outline-none disabled:opacity-50";
+const genericError =
+  "Não foi possível enviar a mensagem. Tente novamente ou utilize o e-mail acima.";
 
 export default function Contact() {
   const [status, setStatus] = useState<Status>({ kind: "idle" });
@@ -22,7 +23,6 @@ export default function Contact() {
 
     const form = event.currentTarget;
     const dados = Object.fromEntries(new FormData(form));
-    const nome = String(dados.nome ?? "");
 
     setStatus({ kind: "sending" });
 
@@ -35,18 +35,18 @@ export default function Contact() {
 
       if (!resposta.ok) {
         const corpo = await resposta.json().catch(() => null);
-        throw new Error(corpo?.error ?? "Não foi possível enviar a mensagem.");
+        throw new Error(corpo?.error ?? genericError);
       }
 
       form.reset();
-      setStatus({ kind: "sent", nome });
+      setStatus({ kind: "sent", nome: String(dados.nome ?? "") });
     } catch (erro) {
       setStatus({
         kind: "error",
         message:
-          erro instanceof Error
-            ? erro.message
-            : "Não foi possível enviar a mensagem.",
+          erro instanceof TypeError || !(erro instanceof Error)
+            ? genericError
+            : erro.message,
       });
     }
   }
@@ -54,133 +54,113 @@ export default function Contact() {
   const enviando = status.kind === "sending";
 
   return (
-    <section id="contato" className="section border-t border-white/5">
-      <div className="shell grid gap-16 lg:grid-cols-[1fr_1.1fr] lg:items-start lg:gap-24">
-        <div>
-          <p className="eyebrow">Contato</p>
+    <section id="contato" className="page mt-section pb-[var(--space-section)]">
+      <SectionHead number="06" title="Contato" />
 
-          <h2 className="mt-6 text-4xl font-semibold tracking-tight md:text-5xl">
-            Vamos conversar sobre o próximo projeto.
-          </h2>
-
-          <p className="mt-6 max-w-md text-lg leading-relaxed">
-            Estou aberta a oportunidades em desenvolvimento front-end, projetos
-            de integração com APIs e reestruturação de bases de código já
-            existentes. Leio todas as mensagens e retorno em até um dia útil.
+      <div className="panel panel-pad fx-up cols mt-head items-start">
+        <div className="lg:col-span-5">
+          <a
+            href={`mailto:${site.email}`}
+            className="title block break-words italic transition-colors hover:text-accent"
+          >
+            {site.email}
+          </a>
+          <p className="lede mt-group max-w-md">
+            Para oportunidades em desenvolvimento, projetos independentes ou
+            convites para ensino e palestras.
           </p>
 
-          <div className="mt-10 flex flex-col gap-3">
-            <a
-              href={`mailto:${site.email}`}
-              className="group inline-flex w-fit items-center gap-2 text-xl font-medium text-accent-300 transition-colors hover:text-accent-100 md:text-2xl"
-            >
-              {site.email}
-              <ArrowUpRight
-                size={20}
-                className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-              />
-            </a>
-
-            <a
-              href={socials.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-fit text-sm text-faint transition-colors hover:text-chalk"
-            >
-              Disponível também no WhatsApp
-            </a>
-          </div>
+          <ul className="mt-group flex flex-col items-start gap-2.5">
+            <li>
+              <ExternalLink href={socials.linkedin}>LinkedIn</ExternalLink>
+            </li>
+            <li>
+              <ExternalLink href={socials.github}>
+                GitHub: {socials.githubHandle}
+              </ExternalLink>
+            </li>
+            <li>
+              <ExternalLink href={socials.whatsapp}>WhatsApp</ExternalLink>
+            </li>
+            <li>
+              <ExternalLink href={socials.curriculo}>
+                Currículo em PDF
+              </ExternalLink>
+            </li>
+          </ul>
         </div>
 
-        <div className="card p-8 md:p-10">
-          <h3 className="text-xl font-semibold">Envie uma mensagem</h3>
-          <p className="mt-2 text-sm text-faint">
-            Um resumo objetivo é suficiente — retorno com as perguntas
-            necessárias.
-          </p>
-
-          <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-5">
-            <div className="flex flex-col gap-2">
-              <label htmlFor="nome" className="font-mono text-xs text-faint">
-                Nome
-              </label>
-              <input
-                id="nome"
-                name="nome"
-                type="text"
-                required
-                maxLength={120}
-                autoComplete="name"
-                disabled={enviando}
-                placeholder="Seu nome completo"
-                className={campoClasses}
-              />
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <label htmlFor="email" className="font-mono text-xs text-faint">
-                E-mail
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                required
-                maxLength={200}
-                autoComplete="email"
-                disabled={enviando}
-                placeholder="E-mail para retorno"
-                className={campoClasses}
-              />
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <label htmlFor="mensagem" className="font-mono text-xs text-faint">
-                Mensagem
-              </label>
-              <textarea
-                id="mensagem"
-                name="mensagem"
-                rows={5}
-                required
-                maxLength={4000}
-                disabled={enviando}
-                placeholder="Descreva brevemente a oportunidade ou o projeto"
-                className={`${campoClasses} resize-none`}
-              />
-            </div>
-
-            {/* Isca para robô de spam: invisível e fora da ordem de tabulação. */}
-            <div aria-hidden className="hidden">
-              <label htmlFor="website">Não preencha este campo</label>
-              <input id="website" name="website" type="text" tabIndex={-1} />
-            </div>
-
-            <button
-              type="submit"
+        <form
+          onSubmit={handleSubmit}
+          aria-label="Formulário de contato"
+          className="flex flex-col gap-7 lg:col-span-6 lg:col-start-7"
+        >
+          <div>
+            <label htmlFor="nome" className="meta block">
+              Nome
+            </label>
+            <input
+              id="nome"
+              name="nome"
+              type="text"
+              required
+              maxLength={120}
+              autoComplete="name"
               disabled={enviando}
-              className="btn btn-primary mt-1 w-full disabled:cursor-not-allowed disabled:opacity-60"
-            >
-              {enviando ? "Enviando…" : "Enviar"}
+              className="field"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="email" className="meta block">
+              E-mail para retorno
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              required
+              maxLength={200}
+              autoComplete="email"
+              disabled={enviando}
+              className="field"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="mensagem" className="meta block">
+              Mensagem
+            </label>
+            <textarea
+              id="mensagem"
+              name="mensagem"
+              rows={5}
+              required
+              maxLength={4000}
+              disabled={enviando}
+              className="field resize-y"
+            />
+          </div>
+
+          {/* Campo isca para automação: invisível e fora da ordem de tabulação. */}
+          <div aria-hidden className="hidden">
+            <label htmlFor="website">Não preencha este campo</label>
+            <input id="website" name="website" type="text" tabIndex={-1} />
+          </div>
+
+          <div className="flex flex-col items-start gap-4">
+            <button type="submit" disabled={enviando} className="submit">
+              {enviando ? "Enviando…" : "Enviar mensagem"}
             </button>
 
-            <p role="status" aria-live="polite" className="min-h-5 text-sm">
-              {status.kind === "sent" && (
-                <span className="inline-flex items-center gap-2 text-accent-300">
-                  <Check size={15} />
-                  Mensagem recebida, {status.nome.split(" ")[0]}. Retorno em
-                  breve.
-                </span>
-              )}
-              {status.kind === "error" && (
-                <span className="inline-flex items-center gap-2 text-ember">
-                  <TriangleAlert size={15} />
-                  {status.message}
-                </span>
-              )}
+            <p role="status" aria-live="polite" className="min-h-6 text-[0.9375rem]">
+              {status.kind === "sent"
+                ? `Mensagem recebida, ${status.nome.trim().split(" ")[0]}. Retornarei pelo e-mail informado.`
+                : null}
+              {status.kind === "error" ? status.message : null}
             </p>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
     </section>
   );

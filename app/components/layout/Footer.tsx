@@ -1,44 +1,52 @@
-import { site, socials } from "@/app/content/site";
+import Link from "next/link";
 
-const links = [
-  { label: "GitHub", href: socials.github },
-  { label: "LinkedIn", href: socials.linkedin },
-  { label: "Currículo (PDF)", href: socials.curriculo },
-];
+import { navigation, site, socials } from "@/app/content/site";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/5 bg-ink-950">
-      <div className="shell flex flex-col gap-8 py-12 md:flex-row md:items-center md:justify-between">
-        <div>
-          <p className="text-sm font-semibold text-chalk">{site.name}</p>
-          <a
-            href={`mailto:${site.email}`}
-            className="mt-1 inline-block text-sm text-mute transition-colors hover:text-accent-300"
-          >
-            {site.email}
-          </a>
+    <footer className="border-t border-line print:hidden">
+      <div className="page grid gap-8 py-10 sm:grid-cols-2 lg:grid-cols-12">
+        <div className="lg:col-span-5">
+          <p className="tag">{site.fullName}</p>
+          <p className="meta mt-1">
+            {site.role}. {site.location}.
+          </p>
         </div>
 
-        <nav aria-label="Links externos">
-          <ul className="flex flex-wrap items-center gap-x-6 gap-y-2">
-            {links.map((link) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-faint transition-colors hover:text-chalk"
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <ul className="meta lg:col-span-2 lg:col-start-7 [&_a]:inline-block [&_a]:py-1">
+          {navigation.map((item) => (
+            <li key={item.href}>
+              <Link href={item.href} className="hover:text-fg">
+                {item.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
 
-        <p className="font-mono text-xs text-faint">
-          © {new Date().getFullYear()} {site.name}
+        <ul className="meta lg:col-span-2 [&_a]:inline-block [&_a]:py-1">
+          <li>
+            <a href={socials.github} className="hover:text-fg">
+              GitHub
+            </a>
+          </li>
+          <li>
+            <a href={socials.linkedin} className="hover:text-fg">
+              LinkedIn
+            </a>
+          </li>
+          <li>
+            <a href={socials.curriculo} className="hover:text-fg">
+              Currículo em PDF
+            </a>
+          </li>
+        </ul>
+
+        <p className="meta lg:col-span-2 lg:text-right">
+          <a href="#conteudo" className="hover:text-fg">
+            Voltar ao início
+          </a>
+          <br />
+          {new Date().getFullYear()}
         </p>
       </div>
     </footer>

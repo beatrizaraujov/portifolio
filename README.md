@@ -9,13 +9,14 @@ engenharia: projetos desenvolvidos, processo de trabalho e trajetória.
 
 ## Visão geral
 
-Este repositório não hospeda apenas uma vitrine visual. Ele serve como
-validação prática das arquiteturas que aplico em soluções para clientes reais
-por meio da Betrix — do tratamento de dados no servidor à experiência de quem
-preenche um formulário e precisa saber que a mensagem chegou.
+Portfólio profissional de Maria Beatriz de Araújo Viana, Desenvolvedora Full
+Stack Júnior. A página inicial apresenta o trabalho selecionado, a trajetória,
+a atuação em ensino, as tecnologias por contexto de uso e os canais de contato.
+Os projetos públicos possuem páginas próprias. Os produtos da Hougmain são
+apresentados apenas em descrição geral, sem telas ou dados internos.
 
-As três rotas de conteúdo são geradas estaticamente em tempo de build; apenas o
-envio do formulário é processado sob demanda.
+Todas as páginas de conteúdo são geradas estaticamente em tempo de build; apenas
+o envio do formulário é processado sob demanda.
 
 ---
 
@@ -52,21 +53,20 @@ se desloque, e leitores de tela anunciam a mudança.
 
 ### Interface e performance
 
-- **TypeScript em todo o projeto**, com os dados dos projetos tipados na origem
-  (`app/content/site.ts`) e consumidos a partir de um contrato único.
-- **Imagens com dimensões declaradas** e `sizes` definido por breakpoint,
-  evitando deslocamento de layout durante o carregamento.
-- **Fontes servidas localmente** via `next/font`, sem requisição a terceiros e
-  sem bloqueio de renderização.
-- **Design sistêmico.** Cores, tipografia, espaçamento e componentes
-  recorrentes são tokens em `app/globals.css`. A estética minimalista prioriza
-  hierarquia visual e legibilidade da informação.
+- **Direção visual.** Fundo escuro editorial, papel na seção de ensino e uma
+  única cor de destaque. Tokens definidos em `app/globals.css`.
+- **Figura de camadas.** Componente `Constellation`: cada projeto e experiência
+  declara as camadas em que houve participação, e a forma é derivada desses
+  dados, com equivalente textual para leitores de tela.
+- **Imagens.** Capturas reais dos sistemas publicados, em WebP, com dimensões
+  declaradas e `sizes` por breakpoint.
+- **Fontes servidas localmente** via `next/font`: Bodoni Moda, Instrument Sans e DM Mono.
 
 ### Acessibilidade
 
 Link para pular ao conteúdo, navegação por teclado no menu móvel (`Escape`
-fecha, o fundo não rola), estados de foco visíveis, `aria-current` na rota
-ativa e texto alternativo descritivo em todas as imagens.
+fecha), estados de foco visíveis, hierarquia de títulos consistente e texto
+alternativo descritivo em todas as imagens.
 
 ### SEO
 
@@ -79,19 +79,21 @@ gerados pela aplicação, e página 404 própria.
 
 ```
 app/
-├── content/site.ts        # identidade, navegação, links e dados dos projetos
+├── content/               # fonte única: site.ts, projects.ts e career.ts
 ├── components/
-│   ├── layout/            # Navbar e Footer
-│   └── home/              # seções da página inicial
-├── expertise/             # rota /expertise ("Sobre")
-├── metodologia/           # rota /metodologia ("Processo")
+│   ├── layout/            # Header e Footer
+│   ├── home/              # seções da página inicial
+│   └── ui/                # figuras, molduras e links
+├── projetos/[slug]/       # estudo de cada projeto público
+├── curriculo/             # origem do PDF do currículo
 ├── api/send/route.ts      # processamento do formulário de contato
 └── globals.css            # tokens de design e classes reutilizáveis
+scripts/gerar-curriculo.mjs  # imprime /curriculo em PDF com o Chrome instalado
 ```
 
-O texto de cada seção permanece no próprio componente. O conteúdo reaproveitado
-em mais de um lugar é centralizado em `app/content/site.ts`, de modo que
-atualizar um projeto ou um link exige alterar um único arquivo.
+O site e o currículo consomem o mesmo conteúdo. Para publicar o certificado da
+UFPA ou os dados da palestra em Vitória, preencha `teaching.certificate` e
+`talk` em `app/content/career.ts`.
 
 ---
 
@@ -135,3 +137,5 @@ NEXT_PUBLIC_SITE_URL=https://seudominio.com
 | `npm run build` | build de produção           |
 | `npm start`     | executa o build de produção |
 | `npm run lint`  | ESLint                      |
+| `npm run typecheck` | verificação de tipos    |
+| `npm run curriculo` | gera o PDF do currículo com o site em execução; use `CURRICULO_URL` para outra porta |

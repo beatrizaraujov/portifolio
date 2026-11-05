@@ -1,0 +1,199 @@
+import type { LayerId } from "./site";
+
+export type ProjectImage = {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  caption?: string;
+};
+
+export type ProjectLink = { label: string; href: string };
+
+/** Projetos públicos: possuem página própria, com capturas reais. */
+export type Project = {
+  slug: string;
+  name: string;
+  /** Quebra do nome nos títulos de grande escala. */
+  titleLines: readonly string[];
+  kind: string;
+  summary: string;
+  context: string;
+  problem: string;
+  role: string;
+  solution: string;
+  stack: readonly string[];
+  decisions: readonly string[];
+  status: string;
+  links: readonly ProjectLink[];
+  layers: readonly LayerId[];
+  image: ProjectImage;
+  /** Captura complementar exibida apenas na página do projeto. */
+  detailImage?: ProjectImage;
+  mobileImage?: ProjectImage;
+};
+
+/**
+ * Produtos da Hougmain: somente descrição funcional geral.
+ * Não recebem telas, dados, decisões técnicas específicas nem página própria.
+ */
+export type ConfidentialProject = {
+  name: string;
+  purpose: string;
+  scope: string;
+};
+
+export const projects: readonly Project[] = [
+  {
+    slug: "agroclimate-intelligence",
+    name: "AgroClimate Intelligence",
+    titleLines: ["AgroClimate", "Intelligence"],
+    kind: "Projeto próprio, código aberto",
+    summary:
+      "Painel que cruza alertas de desmatamento por satélite com estatísticas oficiais de produção agrícola para calcular um índice de sustentabilidade por estado.",
+    context:
+      "Projeto próprio de código aberto, sob licença MIT, sobre dados ambientais e agrícolas do Brasil.",
+    problem:
+      "Os alertas do MapBiomas e as estatísticas do IBGE/SIDRA são públicos, mas estão em fontes separadas. Comparar pressão ambiental e produção por estado exigia cruzar essas informações manualmente.",
+    role: "Concepção, desenvolvimento e publicação: interface, integração com as APIs, cálculo do índice, testes e automação de integração contínua.",
+    solution:
+      "Mapa interativo do Brasil que refiltra todo o painel por estado, índice de sustentabilidade de 0 a 100, dashboard de produção com série histórica de 2019 a 2024 e página de metodologia que documenta fontes, fórmula e limitações.",
+    stack: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "Recharts",
+      "Vitest",
+      "GitHub Actions",
+    ],
+    decisions: [
+      "O índice utiliza intensidades, não totais. Como a API devolve até 500 registros, uma fórmula baseada em contagem bruta saturaria em recortes grandes. A normalização pelo território mantém a comparação significativa.",
+      "A indisponibilidade da fonte é visível. Sem dados ao vivo, o painel recorre a um snapshot de contingência e informa isso na tela, em vez de exibir um índice calculado sobre uma lista vazia.",
+      "As credenciais permanecem no servidor. O Route Handler renova o JWT do MapBiomas a partir do campo exp e expõe apenas uma consulta fixa, de modo que a rota não funciona como proxy aberto.",
+      "O cálculo do índice é uma função pura com testes, incluindo um caso de regressão para a saturação. Lint, tipos, testes e build são executados no CI a cada push.",
+    ],
+    status:
+      "Publicado, com código aberto. O índice é válido como comparação entre regiões dentro do mesmo snapshot, limitação registrada na própria interface.",
+    links: [
+      {
+        label: "Acessar o projeto",
+        href: "https://agro-climate-intelligence.vercel.app",
+      },
+      {
+        label: "Ver repositório",
+        href: "https://github.com/beatrizaraujov/AgroClimate-Intelligence",
+      },
+    ],
+    layers: ["interface", "regras", "apis", "seguranca", "qualidade"],
+    image: {
+      src: "/projetos/agroclimate-dashboard.webp",
+      alt: "Dashboard Principal, com indicadores de produção, distribuição por estado e histórico de safras.",
+      width: 2000,
+      height: 1389,
+    },
+    detailImage: {
+      src: "/projetos/agroclimate-impacto.webp",
+      alt: "Página Indicador de Impacto Agrícola, com aviso de dados de contingência, índice nacional e mapa do Brasil.",
+      width: 2000,
+      height: 1389,
+      caption:
+        "Quando a fonte está indisponível, um aviso informa que os alertas vêm do snapshot de contingência.",
+    },
+  },
+  {
+    slug: "celso-schmidt-advocacia",
+    name: "Dr. Celso Schmidt",
+    titleLines: ["Dr. Celso Schmidt", "Site institucional"],
+    kind: "Desenvolvimento independente para cliente",
+    summary:
+      "Site institucional de um escritório de advocacia empresarial em Capanema, no Pará, desenvolvido e entregue como trabalho independente.",
+    context:
+      "Trabalho independente, realizado para o Dr. Celso Ricardo Schmidt, consultor e advogado empresarial em Capanema (PA).",
+    problem:
+      "O escritório precisava apresentar sua atuação em advocacia empresarial com clareza e conduzir o visitante interessado até o agendamento de uma reunião.",
+    role: "Desenvolvimento da interface, estruturação das páginas institucionais, organização de componentes e navegação, e entrega ao cliente.",
+    solution:
+      "Site responsivo que organiza a apresentação do advogado, as frentes de consultoria, as áreas de atuação e os canais de contato em uma navegação direta.",
+    stack: ["Next.js", "React", "TypeScript/JavaScript", "Tailwind CSS"],
+    decisions: [
+      "O conteúdo está presente no HTML inicial, e os metadados são voltados à busca local por advocacia empresarial.",
+      "Os componentes sustentam a repetição de serviços e etapas sem duplicar marcação.",
+      "O celular tem composição própria, que preserva a hierarquia tipográfica e a chamada de agendamento.",
+    ],
+    status: "Publicado e acessível no domínio do escritório.",
+    links: [
+      {
+        label: "Acessar o site",
+        href: "https://crschmidtadvocacia.com.br/",
+      },
+    ],
+    layers: ["interface"],
+    image: {
+      src: "/projetos/schmidt-desktop.webp",
+      alt: "Página inicial do site do Dr. Celso Ricardo Schmidt em tela de computador, com título, chamada de agendamento e retrato do advogado.",
+      width: 2000,
+      height: 1250,
+    },
+    mobileImage: {
+      src: "/projetos/schmidt-mobile.webp",
+      alt: "A mesma página inicial em tela de celular.",
+      width: 780,
+      height: 1688,
+    },
+  },
+  {
+    slug: "finanly",
+    name: "Finanly",
+    titleLines: ["Finanly"],
+    kind: "Projeto próprio, MVP",
+    summary:
+      "Aplicação mobile-first que reúne controle financeiro e agenda de encomendas, com autenticação e persistência de dados.",
+    context:
+      "MVP próprio de gestão financeira, com o código publicado no GitHub.",
+    problem:
+      "Quem administra o próprio negócio costuma registrar movimentações e encomendas em lugares diferentes, o que dificulta acompanhar o saldo e os compromissos.",
+    role: "Desenvolvimento integral: interface, fluxos de transação, calendário de agendamentos e integração com o Supabase.",
+    solution:
+      "Painel com saldo, entradas e saídas, fluxo de nova transação em etapas, histórico e calendário de encomendas, projetados primeiro para o celular.",
+    stack: ["React", "JavaScript", "Vite", "Tailwind CSS", "Supabase"],
+    decisions: [
+      "Supabase para autenticação e persistência, sem a manutenção de um back-end dedicado na fase de validação do MVP.",
+      "O fluxo de nova transação é separado do painel, com componentes próprios para a escolha do tipo e o preenchimento do formulário.",
+    ],
+    status:
+      "MVP publicado. Como o banco de dados utiliza plano gratuito, o ambiente pode entrar em inatividade; o vídeo de demonstração registra a aplicação em uso.",
+    links: [
+      { label: "Acessar o projeto", href: "https://finanly-sigma.vercel.app" },
+      {
+        label: "Ver repositório",
+        href: "https://github.com/beatrizaraujov/Finanly",
+      },
+      {
+        label: "Assistir à demonstração",
+        href: "https://www.linkedin.com/posts/beatriz-ara%C3%BAjo-386976270_desenvolvimentoweb-reactjs-frontend-ugcPost-7425147961191522304-JPD1/",
+      },
+    ],
+    layers: ["interface", "regras", "dados", "seguranca"],
+    image: {
+      src: "/projetos/finanly-home.png",
+      alt: "Tela inicial do Finanly em um celular, com saldo total, entradas, saídas, gráfico semanal e últimas transações.",
+      width: 342,
+      height: 749,
+    },
+  },
+];
+
+export const confidentialProjects: readonly ConfidentialProject[] = [
+  {
+    name: "NR-1",
+    purpose: "Avaliação de riscos psicossociais no ambiente de trabalho.",
+    scope:
+      "Gestão, questionários, anonimato, controle de acesso e processamento de respostas.",
+  },
+  {
+    name: "iBaby Coach",
+    purpose: "Gestão e acompanhamento de atividades.",
+    scope: "Diferentes fluxos e regras de negócio.",
+  },
+];

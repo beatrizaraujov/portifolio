@@ -1,28 +1,22 @@
+import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+
+import { Arrow } from "./components/ui/ExternalLink";
+
+export const metadata: Metadata = { title: "Página não encontrada" };
 
 export default function NotFound() {
   return (
-    <section className="section">
-      <div className="shell">
-        <div className="max-w-xl">
-          <p className="eyebrow">Erro 404</p>
-
-          <h1 className="mt-6 text-4xl font-semibold tracking-tight md:text-5xl">
-            Página não encontrada.
-          </h1>
-
-          <p className="mt-6 leading-relaxed">
-            O endereço pode ter mudado ou o link estar incorreto. Em ambos os
-            casos, o caminho de retorno é o mesmo.
-          </p>
-
-          <Link href="/" className="btn btn-ghost mt-10">
-            <ArrowLeft size={16} />
-            Voltar ao início
-          </Link>
-        </div>
-      </div>
+    <section className="page py-20 lg:py-32">
+      <p className="tag">Erro 404</p>
+      <h1 className="mega-md mt-6 max-w-[10em]">Esta página não existe.</h1>
+      <p className="mt-8 max-w-md text-lg">
+        O endereço pode ter sido alterado ou digitado incorretamente.
+      </p>
+      <Link href="/" className="link mt-8">
+        <Arrow direction="left" />
+        Voltar ao início
+      </Link>
     </section>
   );
 }

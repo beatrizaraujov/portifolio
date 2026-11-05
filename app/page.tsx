@@ -1,16 +1,20 @@
-import Hero from "./components/home/Hero";
-import Principios from "./components/home/Principios";
-import Projects from "./components/home/Projects";
-import Tech from "./components/home/Tech";
+import Intro from "./components/home/Intro";
+import Work from "./components/home/Work";
+import Career from "./components/home/Career";
+import Teaching from "./components/home/Teaching";
+import Technologies from "./components/home/Technologies";
+import About from "./components/home/About";
 import Contact from "./components/home/Contact";
 
 export default function Home() {
   return (
     <>
-      <Hero />
-      <Principios />
-      <Projects />
-      <Tech />
+      <Intro />
+      <Work />
+      <Career />
+      <Teaching />
+      <Technologies />
+      <About />
       <Contact />
     </>
   );

@@ -1,64 +1,79 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Bodoni_Moda, DM_Mono, Instrument_Sans } from "next/font/google";
 
 import "./globals.css";
-import Navbar from "./components/layout/Navbar";
+import Header from "./components/layout/Header";
+import Motion from "./components/ui/Motion";
 import Footer from "./components/layout/Footer";
-import { site } from "./content/site";
+import { site, socials } from "./content/site";
 
-const inter = Inter({
+const bodoni = Bodoni_Moda({
   subsets: ["latin"],
-  variable: "--font-inter",
+  style: ["normal", "italic"],
+  axes: ["opsz"],
+  variable: "--font-bodoni",
   display: "swap",
 });
 
-const jetbrainsMono = JetBrains_Mono({
+const instrument = Instrument_Sans({
   subsets: ["latin"],
-  variable: "--font-mono-code",
+  variable: "--font-instrument",
   display: "swap",
 });
 
-const description =
-  "Desenvolvedora front-end especializada em React e Next.js. Desenvolvo aplicações web com integração de APIs, foco em performance e código preparado para manutenção.";
+const dmMono = DM_Mono({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-dm-mono",
+  display: "swap",
+});
+
+const title = `${site.name}, ${site.role}`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: {
-    default: `${site.name} — ${site.role}`,
-    template: `%s — ${site.name}`,
-  },
-  description,
+  title: { default: title, template: `%s | ${site.name}` },
+  description: site.description,
   keywords: [
-    "desenvolvedora front-end",
+    "desenvolvedora full stack",
+    "desenvolvedora júnior",
     "React",
     "Next.js",
     "TypeScript",
-    "portfólio",
+    "APIs",
+    "Pará",
+    "Belém",
   ],
-  authors: [{ name: site.name, url: site.url }],
-  creator: site.name,
+  authors: [{ name: site.fullName, url: site.url }],
+  creator: site.fullName,
+  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "pt_BR",
-    url: site.url,
+    url: "/",
     siteName: site.name,
-    title: `${site.name} — ${site.role}`,
-    description,
+    title,
+    description: site.description,
   },
-  twitter: {
-    card: "summary_large_image",
-    title: `${site.name} — ${site.role}`,
-    description,
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
+  twitter: { card: "summary_large_image", title, description: site.description },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0b0b0d",
+  themeColor: "#12110f",
   colorScheme: "dark",
+};
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: site.fullName,
+  alternateName: site.name,
+  jobTitle: site.role,
+  image: `${site.url}/fotos/beatriz-foto.webp`,
+  url: site.url,
+  email: `mailto:${site.email}`,
+  sameAs: [socials.github, socials.linkedin],
+  alumniOf: { "@type": "CollegeOrUniversity", name: "Estácio" },
 };
 
 export default function RootLayout({
@@ -69,21 +84,22 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`${inter.variable} ${jetbrainsMono.variable}`}
+      className={`${bodoni.variable} ${instrument.variable} ${dmMono.variable}`}
     >
       <body className="flex min-h-screen flex-col">
-        <a href="#conteudo" className="skip-link">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
+        <a href="#conteudo" className="skip-link print:hidden">
           Pular para o conteúdo
         </a>
-
-        <Navbar />
-
-        {/* pt-[72px] compensa a navbar fixa, que tem exatamente essa altura. */}
-        <main id="conteudo" className="flex-1 pt-[72px]">
+        <Header />
+        <main id="conteudo" className="flex-1">
           {children}
         </main>
-
         <Footer />
+        <Motion />
       </body>
     </html>
   );
